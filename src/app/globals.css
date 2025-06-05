@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-white-pattern {
+  background-color: #ffffff;
+  background-image: radial-gradient(#e5e7eb 0.7px, transparent 0.7px);
+  background-size: 20px 20px;
+}
+
+.bg-black-pattern {
+  background-color: #000000;
+  background-image: radial-gradient(#1a1a1a 0.7px, transparent 0.7px);
+  background-size: 20px 20px;
+}
