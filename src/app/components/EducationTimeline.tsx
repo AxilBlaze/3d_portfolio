@@ -210,7 +210,7 @@ const EducationTimeline: React.FC = () => {
         </div>
 
         <div className="timeline">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <div
               key={item.title}
               className={`timeline-item ${item.isCurrent ? 'current-education' : ''}`}

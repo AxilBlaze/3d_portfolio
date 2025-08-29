@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react'
 
 const CertificatesSection = () => {
-  const [scrollY, setScrollY] = useState(0)
   const [progress, setProgress] = useState(0)
   const containerRef = useRef(null)
   const [isInView, setIsInView] = useState(false)
@@ -29,7 +28,6 @@ const CertificatesSection = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
       if (containerRef.current) {
         const rect = (containerRef.current as HTMLElement).getBoundingClientRect()
         const viewportH = window.innerHeight

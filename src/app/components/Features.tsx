@@ -9,7 +9,6 @@ const Features = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let last = 'white';
     const observer = new IntersectionObserver(
       ([entry]) => {
         const rect = entry.boundingClientRect;

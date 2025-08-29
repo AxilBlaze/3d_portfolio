@@ -44,7 +44,7 @@ const Hero = () => {
       }
       setStatus('Message sent successfully.');
       setMessage('');
-    } catch (err) {
+    } catch {
       setStatus('Failed to send. Please try again later.');
     } finally {
       setIsSending(false);
@@ -70,7 +70,7 @@ const Hero = () => {
               Sandeep Balabantaray
             </h1>
             <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed font-sans">
-              I'm an AI/ML engineer on a mission to drive change with intelligent systems. I craft powerful algorithms, harness data, and build solutions that make a real impact—whether it's improving lives, optimizing industries, or pushing the boundaries of innovation. AI isn't just my work; it's my tool for shaping a smarter, more connected world.
+              I&#39;m an AI/ML engineer on a mission to drive change with intelligent systems. I craft powerful algorithms, harness data, and build solutions that make a real impact—whether it&#39;s improving lives, optimizing industries, or pushing the boundaries of innovation. AI isn&#39;t just my work; it&#39;s my tool for shaping a smarter, more connected world.
             </p>
             <form onSubmit={handleSend} className="mb-6">
               <textarea

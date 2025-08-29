@@ -13,10 +13,12 @@ function randomBetween(a: number, b: number) {
   return a + Math.random() * (b - a);
 }
 
+type Particle = { x: number; y: number; vx: number; vy: number };
+
 const ParticleWireBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | undefined>(undefined);
-  const particles = useRef<any[]>([]);
+  const particles = useRef<Particle[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,8 +40,8 @@ const ParticleWireBackground = () => {
       // Draw lines
       for (let i = 0; i < NUM_PARTICLES; i++) {
         for (let j = i + 1; j < NUM_PARTICLES; j++) {
-          const p1 = particles.current[i];
-          const p2 = particles.current[j];
+          const p1 = particles.current[i]!;
+          const p2 = particles.current[j]!;
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -55,7 +57,7 @@ const ParticleWireBackground = () => {
       }
       // Draw particles
       for (let i = 0; i < NUM_PARTICLES; i++) {
-        const p = particles.current[i];
+        const p = particles.current[i]!;
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, PARTICLE_RADIUS, 0, 2 * Math.PI);
         ctx!.fillStyle = PARTICLE_COLOR;
