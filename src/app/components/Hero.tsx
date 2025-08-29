@@ -80,13 +80,23 @@ const Hero = () => {
                 className="bg-[#23272F] text-gray-200 placeholder-gray-400 rounded-lg px-5 py-3 w-full h-28 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-[#23272F] mb-2"
                 required
               />
-              <button
-                type="submit"
-                disabled={isSending}
-                className={`bg-gradient-to-r from-[#3b82f6] to-[#6366f1] hover:from-[#2563eb] hover:to-[#4f46e5] text-white font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto ${isSending ? 'opacity-70 cursor-not-allowed' : ''}`}
-              >
-                {isSending ? 'Sending…' : 'Send Message'}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch">
+                <button
+                  type="submit"
+                  disabled={isSending}
+                  className={`bg-gradient-to-r from-[#3b82f6] to-[#6366f1] hover:from-[#2563eb] hover:to-[#4f46e5] text-white font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto ${isSending ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {isSending ? 'Sending…' : 'Send Message'}
+                </button>
+                <a
+                  href="/Resume.pdf"
+                  download
+                  aria-label="Download Resume"
+                  className="bg-gradient-to-r from-gray-200 to-gray-400 hover:from-gray-100 hover:to-gray-300 text-black font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto text-center"
+                >
+                  Download Resume
+                </a>
+              </div>
             {status && (
               <p className="text-sm mt-2 text-gray-300">{status}</p>
             )}

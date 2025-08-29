@@ -17,7 +17,7 @@ const Features = () => {
         const scrollProgress = 1 - (rect.top / viewportHeight);
         
         // Calculate background color based on scroll progress
-        if (scrollProgress > 0.9) { // Start transition after 90% scroll
+        if (scrollProgress > 0.1) { // Start transition after 90% scroll
           setBackground('black');
         } else {
           setBackground('white');
