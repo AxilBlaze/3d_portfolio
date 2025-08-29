@@ -2,12 +2,12 @@
 
 import React, { useRef, useEffect } from 'react';
 
-const NUM_PARTICLES = 18;
-const PARTICLE_COLOR = 'rgba(99,102,241,0.7)'; // Indigo-500
-const LINE_COLOR = 'rgba(99,102,241,0.2)';
+const NUM_PARTICLES = 35;
+const PARTICLE_COLOR = 'rgba(99,102,241,0.5)'; // Indigo-500 with reduced opacity
+const LINE_COLOR = 'rgba(61, 124, 234, 0.15)'; // Lighter indigo for lines
 const PARTICLE_RADIUS = 2.5;
 const SPEED = 0.3;
-const MAX_DIST = 180;
+const MAX_DIST = 220;
 
 function randomBetween(a: number, b: number) {
   return a + Math.random() * (b - a);

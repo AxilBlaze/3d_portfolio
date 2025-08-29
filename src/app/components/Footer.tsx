@@ -2,67 +2,35 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              OPENGIG
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              © 2025 Opengig. All rights reserved.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Links
-            </h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Partner with Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Blogs
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Terms and Conditions
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Connect
-            </h4>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                LinkedIn
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Youtube
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Instagram
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Twitter
-              </a>
-            </div>
-          </div>
-        </div>
+    <footer className="footer-purple py-16 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h3 className="text-5xl md:text-6xl font-extrabold tracking-widest">
+          <span className="silver-shimmer">Thank you</span>
+        </h3>
       </div>
+      <style jsx>{`
+        .footer-purple {
+          background:
+            radial-gradient(1200px 400px at 10% -20%, rgba(124, 58, 237, 0.20), transparent 60%),
+            radial-gradient(1000px 500px at 90% 0%, rgba(59, 130, 246, 0.16), transparent 60%),
+            radial-gradient(800px 400px at 50% 120%, rgba(99, 102, 241, 0.18), transparent 55%),
+            linear-gradient(180deg, #0b0f1f 0%, #0d122a 45%, #0e1024 100%);
+        }
+        .silver-shimmer {
+          background: linear-gradient(90deg, #d1d5db, #f3f4f6, #9ca3af, #f3f4f6, #d1d5db);
+          background-size: 300% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: shimmer 3.5s infinite;
+          text-shadow: 0 0 12px rgba(255,255,255,0.15);
+        }
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </footer>
   );
 };

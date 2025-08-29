@@ -7,29 +7,48 @@ import { FaLinkedin, FaGithub, FaCode } from 'react-icons/fa';
 const socials = [
   {
     name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/sandeepbalabantaray/',
+    href: 'https://www.linkedin.com/in/sandeep-balabantaray-69b60221b/',
     icon: <FaLinkedin size={22} />,
   },
   {
     name: 'GitHub',
-    href: 'https://github.com/sandeepbalabantaray',
+    href: 'https://github.com/AxilBlaze',
     icon: <FaGithub size={22} />,
   },
   {
-    name: 'LeetCode',
-    href: 'https://leetcode.com/sandeepbalabantaray/',
+    name: 'CodingProfile',
+    href: 'https://codolio.com/profile/Axil_Blaze',
     icon: <FaCode size={22} />,
   },
 ];
 
 const Hero = () => {
   const [message, setMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    // You can add your message handling logic here (e.g., send to email or API)
-    alert('Message sent!');
-    setMessage('');
+    if (isSending) return;
+    setIsSending(true);
+    setStatus(null);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || 'Failed to send');
+      }
+      setStatus('Message sent successfully.');
+      setMessage('');
+    } catch (err) {
+      setStatus('Failed to send. Please try again later.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -45,41 +64,59 @@ const Hero = () => {
         }}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="max-w-2xl text-left">
-          <h1 className="text-5xl sm:text-7xl font-extrabold mb-6 leading-tight font-sans bg-gradient-to-r from-[#A3BFFA] via-[#7F9CF5] to-[#B794F4] text-transparent bg-clip-text">
-            Sandeep Balabantaray
-          </h1>
-          <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed font-sans">
-            I'm an AI/ML engineer on a mission to drive change with intelligent systems. I craft powerful algorithms, harness data, and build solutions that make a real impact—whether it's improving lives, optimizing industries, or pushing the boundaries of innovation. AI isn't just my work; it's my tool for shaping a smarter, more connected world.
-          </p>
-          <form onSubmit={handleSend} className="mb-6">
-            <textarea
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Drop me a message..."
-              className="bg-[#23272F] text-gray-200 placeholder-gray-400 rounded-lg px-5 py-3 w-full h-28 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-[#23272F] mb-2"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-[#3b82f6] to-[#6366f1] hover:from-[#2563eb] hover:to-[#4f46e5] text-white font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto"
-            >
-              Send Message
-            </button>
-          </form>
-          <div className="flex flex-col sm:flex-row gap-4 w-full mb-8">
-            {socials.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] hover:from-[#2563eb] hover:to-[#4f46e5] text-white font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto justify-center"
+        <div className="flex justify-between items-center">
+          <div className="max-w-2xl text-left">
+            <h1 className="text-5xl sm:text-7xl font-extrabold mb-6 leading-tight font-sans bg-gradient-to-r from-[#A3BFFA] via-[#7F9CF5] to-[#B794F4] text-transparent bg-clip-text">
+              Sandeep Balabantaray
+            </h1>
+            <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed font-sans">
+              I'm an AI/ML engineer on a mission to drive change with intelligent systems. I craft powerful algorithms, harness data, and build solutions that make a real impact—whether it's improving lives, optimizing industries, or pushing the boundaries of innovation. AI isn't just my work; it's my tool for shaping a smarter, more connected world.
+            </p>
+            <form onSubmit={handleSend} className="mb-6">
+              <textarea
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                placeholder="Drop me a message..."
+                className="bg-[#23272F] text-gray-200 placeholder-gray-400 rounded-lg px-5 py-3 w-full h-28 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-[#23272F] mb-2"
+                required
+              />
+              <button
+                type="submit"
+                disabled={isSending}
+                className={`bg-gradient-to-r from-[#3b82f6] to-[#6366f1] hover:from-[#2563eb] hover:to-[#4f46e5] text-white font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto ${isSending ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                {social.icon}
-                {social.name}
-              </a>
-            ))}
+                {isSending ? 'Sending…' : 'Send Message'}
+              </button>
+            {status && (
+              <p className="text-sm mt-2 text-gray-300">{status}</p>
+            )}
+            </form>
+            <div className="flex flex-col sm:flex-row gap-4 w-full mb-8">
+              {socials.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] hover:from-[#2563eb] hover:to-[#4f46e5] text-white font-semibold rounded-lg px-6 py-3 shadow transition-all duration-200 w-full sm:w-auto justify-center"
+                >
+                  {social.icon}
+                  {social.name}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="hidden lg:block w-5/6 relative translate-x-20 -translate-y-8">
+            <img
+              src="/brain.png"
+              alt="Brain visualization"
+              className="w-full h-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 animate-brain-rotate"
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(99,102,241,0.3))',
+                transform: 'scale(2.2)',
+                transformOrigin: 'center',
+              }}
+            />
           </div>
         </div>
       </div>
@@ -110,6 +147,30 @@ const Hero = () => {
             background-position: 70% 30%;
             opacity: 0.7;
           }
+        }
+
+        @keyframes brainRotate {
+          0% {
+            transform: scale(2.2) rotateY(0deg) rotateX(0deg);
+          }
+          25% {
+            transform: scale(2.2) rotateY(90deg) rotateX(15deg);
+          }
+          50% {
+            transform: scale(2.2) rotateY(180deg) rotateX(0deg);
+          }
+          75% {
+            transform: scale(2.2) rotateY(270deg) rotateX(-15deg);
+          }
+          100% {
+            transform: scale(2.2) rotateY(360deg) rotateX(0deg);
+          }
+        }
+
+        .animate-brain-rotate {
+          animation: brainRotate 20s linear infinite;
+          transform-style: preserve-3d;
+          perspective: 1000px;
         }
       `}</style>
     </div>
