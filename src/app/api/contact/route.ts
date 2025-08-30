@@ -3,12 +3,52 @@ import nodemailer from 'nodemailer';
 
 export const runtime = 'nodejs';
 
+// Daily email cap (best-effort in-memory). For production, back with a persistent store.
+const EMAIL_DAILY_LIMIT = process.env.CONTACT_DAILY_LIMIT
+  ? Number(process.env.CONTACT_DAILY_LIMIT)
+  : 100;
+
+type DailyCounter = { dateKey: string; count: number };
+
+declare global {
+  // eslint-disable-next-line no-var
+  var __emailDailyCounter: DailyCounter | undefined;
+}
+
+function getTodayKey(): string {
+  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+}
+
+function isLimitReached(): boolean {
+  const today = getTodayKey();
+  const counter = globalThis.__emailDailyCounter;
+  if (!counter || counter.dateKey !== today) {
+    globalThis.__emailDailyCounter = { dateKey: today, count: 0 };
+    return false;
+  }
+  return counter.count >= EMAIL_DAILY_LIMIT;
+}
+
+function incrementCounter(): void {
+  const today = getTodayKey();
+  const counter = globalThis.__emailDailyCounter;
+  if (!counter || counter.dateKey !== today) {
+    globalThis.__emailDailyCounter = { dateKey: today, count: 1 };
+    return;
+  }
+  counter.count += 1;
+}
+
 export async function POST(req: Request) {
   try {
     const { message, fromEmail, fromName } = await req.json().catch(() => ({}));
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return NextResponse.json({ ok: false, error: 'Message is required' }, { status: 400 });
+    }
+
+    if (isLimitReached()) {
+      return NextResponse.json({ ok: false, error: 'Daily email limit reached' }, { status: 429 });
     }
 
     const host = process.env.SMTP_HOST;
@@ -38,6 +78,7 @@ export async function POST(req: Request) {
 </div>`;
 
     await transporter.sendMail({ from, to, subject, text: textBody, html: htmlBody });
+    incrementCounter();
 
     return NextResponse.json({ ok: true });
   } catch (err) {
