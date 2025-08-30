@@ -138,7 +138,7 @@ const CertificatesSection = () => {
             transform: `translateY(${titleTranslateY}px) scale(${titleScale})`
           }}
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Certifications
           </h1>
           <p className="text-xl md:text-2xl text-gray-400 mt-4 font-light">
