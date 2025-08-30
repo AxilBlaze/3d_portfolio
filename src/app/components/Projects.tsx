@@ -111,8 +111,8 @@ const Projects: React.FC = () => {
                     <button aria-label="Info" className="absolute top-3 right-3 z-30 text-white/90 hover:text-white" onClick={() => setFlipped(prev => ({ ...prev, [i]: true }))}>
                       <AiOutlineInfoCircle size={22} />
                     </button>
-                    <div className="absolute inset-0 bg-black/70 group-hover:bg-black/0 transition-colors duration-300 z-10" />
-                    <img src={project.imageSrc} alt={project.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 hidden lg:block lg:bg-black/70 lg:group-hover:bg-black/0 transition-colors duration-300 z-10" />
+                    <img src={project.imageSrc} alt={project.title} className="w-full h-full object-cover opacity-100 lg:opacity-40 lg:group-hover:opacity-100 transition-opacity duration-300 filter brightness-110 saturate-125 lg:brightness-100 lg:saturate-100" />
                     <div className="absolute inset-0 flex flex-col justify-between p-6 z-20">
                       <div>
                         <span className="inline-block bg-white/70 backdrop-blur px-3 py-1 rounded-md">
