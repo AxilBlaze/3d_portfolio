@@ -261,8 +261,8 @@ async function callGemini(promptText: string): Promise<string> {
     return 'Sorry — my brain is having a moment. Please try again in a bit or reach out via the contact form. — Klaus';
   }
 
-  const data = (await resp.json()) as any;
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  const data: unknown = await resp.json();
+  const text = extractGeminiText(data);
   if (typeof text === 'string' && text.trim().length > 0) return text.trim();
   return 'I could not find an answer in my available facts. Feel free to ask differently or use the contact form. — Klaus';
 }
@@ -328,8 +328,8 @@ export async function GET() {
       console.error('[Klaus] health probe failed', r.status, t);
       return NextResponse.json({ ok: false, hasKey: true, model, providerStatus: r.status }, { status: 200 });
     }
-    const j = (await r.json()) as any;
-    const text = j?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const j: unknown = await r.json();
+    const text = extractGeminiText(j) || '';
     const ok = typeof text === 'string' && text.length > 0;
     return NextResponse.json({ ok, hasKey: true, model }, { status: 200 });
   } catch (err) {
@@ -368,6 +368,15 @@ function extractJsonFromText(text: string): string | undefined {
     }
   }
   return undefined;
+}
+
+function extractGeminiText(data: unknown): string | undefined {
+  const d = data as {
+    candidates?: Array<{
+      content?: { parts?: Array<{ text?: string }> }
+    }>;
+  };
+  return d?.candidates?.[0]?.content?.parts?.[0]?.text;
 }
 
 
