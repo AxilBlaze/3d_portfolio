@@ -71,10 +71,10 @@ export default function KlausWidget(): React.ReactElement {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, history: messages, pageUrl: window.location.href }),
       });
-      const data = await resp.json().catch(() => ({} as any));
-      const reply = (data?.reply as string) || "Sorry, I couldn't get a response.";
+      const data = (await resp.json().catch(() => ({}))) as { reply?: string };
+      const reply = data?.reply || "Sorry, I couldn't get a response.";
       setMessages((prev) => [...prev, { role: 'assistant', content: reply }]);
-    } catch (e) {
+    } catch {
       setMessages((prev) => [...prev, { role: 'assistant', content: 'Network error — please try again later.' }]);
     }
   }
