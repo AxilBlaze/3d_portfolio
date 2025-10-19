@@ -1,0 +1,183 @@
+[
+    {
+    "id": "owner",
+    "text": "This portfolio belongs to Sandeep Balabantaray, an AI Native Engineer, Machine Learning Engineer, and Python Developer passionate about building intelligent, data-driven systems and next-gen AI applications."
+    },
+    {
+    "id": "contact",
+    "text": "You can contact Sandeep via email at [sandeepcool2036@gmail.com](mailto:sandeepcool2036@gmail.com) or through the contact form on the site."
+    },
+    {
+    "id": "profiles:linkedin",
+    "text": "LinkedIn: linkedin.com/in/sandeep-balabantaray-69b60221b"
+    },
+    {
+    "id": "profiles:github",
+    "text": "GitHub: github.com/AxilBlaze"
+    },
+    {
+    "id": "education:vit-bhopal",
+    "text": "VIT Bhopal University — Bachelor of Technology in Computer Science and Engineering, CGPA 8.58, 2022–2026."
+    },
+    {
+    "id": "experience:algouniversity",
+    "text": "AlgoUniversity (YC S21) — SWE Co-Op Intern (May 2025–Present, Remote). Architected CodeBlaze (500+ active users) with Docker-based compilers, React + Tailwind UI, and an admin console. Scaled Django/DRF backend handling 10K+ submissions/day. Deployed on AWS EC2 + Nginx with Docker workers and Vercel frontend (99.9% uptime). Built 'Ember', an AI coding assistant using Google Gemini for code analysis, evaluation, and intelligent hints."
+    },
+    {
+    "id": "experience:mp-police",
+    "text": "Madhya Pradesh Police — Frontend Web Developer & Database Manager Intern (Dec 2024–Mar 2025, Bhopal). Digitized 50+ manual forms using React and Flask, reducing paperwork by 70% and processing time by 50%. Automated database workflows and Excel data extraction, cutting retrieval time by 60%."
+    },
+    {
+    "id": "project:codeblaze",
+    "text": "CodeBlaze: Next-gen online judge with React/Tailwind frontend and Django backend, Docker-based judging, and WebSockets. Hosted via Vercel (frontend) and AWS EC2 (backend)."
+    },
+    {
+    "id": "project:coursecraft",
+    "text": "CourseCraft: AI-powered learning platform using React (Vite) + Tailwind with Flask backend and MongoDB. Integrates Hugging Face models for tutoring, adaptive recommendations, and intelligent feedback."
+    },
+    {
+    "id": "project:walmart-bot",
+    "text": "Walmart AI Grocery Assistant: Chat-based grocery list manager with OCR for images/PDFs and AI-based product recommendations using market-basket analysis. Powered by Flask, Google Gemini, and a custom Chrome extension."
+    },
+    {
+    "id": "project:coursefinder",
+    "text": "CourseFinder: Recommends courses using SVD and performs sentiment analysis on reviews via scikit-learn and NLTK. Built with React + Tailwind frontend, Flask backend, and hosted on Render."
+    },
+    {
+    "id": "project:walmart-assistant",
+    "text": "Walmart AI Shopping Assistant (Jun–Jul 2025): Implements Apriori and FP-Growth for +20% bundle accuracy and +15% add-to-cart rate. React frontend, Chrome Extension, Flask API, Gemini multi-modal integration, OCR accuracy 95%+ with <2s latency."
+    },
+    {
+    "id": "project:course-finder",
+    "text": "Course Finder (Feb–May 2024): SVD-based course recommendations for 1000+ courses (+30% match accuracy), sentiment analysis of 2,000+ reviews, Flask backend, deployed web app."
+    },
+    {
+    "id": "project:medipred",
+    "text": "MediPred (Aug–Dec 2023): Healthcare ML project processing 10M+ records. Improved model accuracy by 25%, achieved 90%+ accuracy on 5,000+ test records, deployed via Flask API."
+    },
+    {
+    "id": "project:agritech",
+    "text": "AgriTech (2024): AI e-commerce platform for farmers to buy seeds, fertilizers, and machinery. Features include AI chatbot for product advice, plant disease detection via image upload, and an expert chatbot. Stack: Next.js, TypeScript, Tailwind, PostgreSQL, TensorFlow, PyTorch, Flask, FastAPI."
+    },
+    {
+    "id": "project:bns-analyzer",
+    "text": "BNS Analyzer (2025): Legal AI tool using Retrieval-Augmented Generation (RAG) to compare IPC and BNS provisions, highlight changes, and recommend legal sections. Built using Hugging Face models, FAISS, and ChromaDB."
+    },
+    {
+    "id": "project:skillcraft",
+    "text": "SkillCraft (2025): Adaptive learning platform powered by Generative AI and RAG for personalized, dynamic learning experiences based on user progress and performance."
+    },
+    {
+    "id": "project:portfolio",
+    "text": "Portfolio Website (2024): Personal portfolio built using HTML, CSS, and JavaScript, collaboratively designed and hosted online."
+    },
+    {
+    "id": "ai-native-engineering",
+    "text": "AI Native Engineer: Designs and integrates advanced AI-native systems with Retrieval-Augmented Generation (RAG), AI automation, and multi-agent frameworks. Skilled in leveraging open-source LLMs like Gemini, Mistral, LLaMA, and Falcon for intelligent assistants and automated workflows. Combines LLM pipelines, vector databases, and automation frameworks to build scalable, context-aware AI systems for real-world use."
+    },
+    {
+    "id": "role:machine-learning-engineer",
+    "text": "Machine Learning Engineer: Proficient in building end-to-end ML systems — from data preprocessing and model training to deployment and optimization. Experienced in regression, classification, clustering, NLP, and deep learning. Skilled in frameworks like TensorFlow, PyTorch, and Scikit-Learn. Builds production-ready APIs using Flask and FastAPI and integrates ML models with web applications. Focus areas include model explainability, hyperparameter tuning, and real-time prediction pipelines."
+    },
+    {
+    "id": "role:python-developer",
+    "text": "Python Developer: Experienced in writing efficient, scalable, and modular Python code. Skilled in automation, API development (Flask/FastAPI), and data processing using Pandas and NumPy. Comfortable with asynchronous programming, web scraping, and working with cloud services. Builds robust backends and integrates Python with ML and AI workflows for full-stack intelligent applications."
+    },
+    {
+    "id": "skills:technical",
+    "text": "Technical Skills — Languages: Python, C++, JavaScript, TypeScript, HTML, CSS, PHP, SQL. Frameworks: Flask, Django, React, Next.js, Tailwind, FastAPI. Databases: MySQL, PostgreSQL, MongoDB, SQLite. Machine Learning: Scikit-Learn, TensorFlow, Keras, PyTorch, Hugging Face, LangChain, LangFlow. Specializations: NLP, Deep Learning, Computer Vision, Generative AI, Agentic AI Systems, Model Optimization. Tools: Docker, AWS (EC2, S3, Lambda, RDS, CloudWatch, Elastic Beanstalk, IAM, SSL), Git, GitHub, Vercel."
+    },
+    {
+    "id": "achievements",
+    "text": "Achievements: 2nd place in AlgoUniversity programming camp (advanced graph theory). Completed Machine Learning Specialization (Stanford & DeepLearning.AI). LeetCode Knight badge with 1819 rating, ranked top 5.3% globally."
+    },
+    {
+    "id": "hackathon:amdocs-2024",
+    "text": "Amdocs Gen AI Hackathon (Nov–Dec 2024): Semi-finalist among 500+ students. Built GenAI Tutor using Mistral, GPT-1, and LLaMA with chain-of-thought reasoning."
+    },
+    {
+    "id": "hackathon:sih-2023",
+    "text": "Smart India Hackathon (Nov–Dec 2023): Qualified University Finals. Led ML model deployment for healthcare project, ranked top 20% among 200+ teams."
+    },
+    {
+    "id": "hobbies",
+    "text": "Hobbies and Interests: Passionate about exploring cutting-edge AI technologies, experimenting with open-source LLMs, and building creative GenAI projects. Enjoys competitive programming, reading AI research papers, and contributing to GitHub projects. Loves teaching peers about ML and AI, mentoring juniors, and sharing insights on LinkedIn. Outside tech, enjoys listening to instrumental music, playing chess, and watching science documentaries."
+    },
+    {
+    "id": "sections",
+    "text": "Key sections include Projects, Experience, Education, Technical Skills, Achievements, and Contact Information. The resume is available under /public/Resume.pdf."
+    },
+    {
+    "id": "extra:club_coordinator",
+    "text": "Club Coordinator — SDC Club at VIT Bhopal University. Active in organizing workshops, coding sessions, and peer-learning events."
+    },
+    {
+    "id": "extra:automl_spec",
+    "text": "AutoML Project: Designing an AutoML solution for supervised learning targeting datasets up to 5,000 rows and 10 columns. Includes multiple algorithms, automated preprocessing, model selection, and evaluation metrics (Accuracy, RMSE) with explainability outputs."
+    },
+    {
+    "id": "extra:competitive_programming_experience",
+    "text": "Competitive Programming & Algorithms: Strong background in algorithmic problem solving (permutations, digit-manipulation, negabinary addition, interactive problems). Regularly practices and competes on platforms like LeetCode and participates in contests and campus coding events."
+    },
+    {
+    "id": "extra:deep_image_entity_model",
+    "text": "Deep Learning — Image Entity Extraction: Building a model that scans images to predict entity values based on image links and entity names. Outputs follow a strict 'x unit' format (float + allowed unit) per test record; returns an empty string if no value is found."
+    },
+    {
+    "id": "extra:pothole_detection_project",
+    "text": "Pothole Detection for Mobility: Designing a real-time pothole detection system using YOLOv8. Features include in-vehicle alerts (buzzer/AI assistant), image capture with GPS coordinates, severity classification (minor/moderate/severe), storage in a database, real-time dashboard for authorities, and automated vehicle speed reduction."
+    },
+    {
+    "id": "extra:travel_and_studies",
+    "text": "Travel & Cultural Exposure: Has traveled extensively across India and studied in multiple Indian states — broad cultural exposure and adaptability."
+    },
+    {
+    "id": "extra:telecom_learning",
+    "text": "Telecommunications Learning: Currently learning telecommunication networks including BSNL landline systems, EDGE, UMTS, and LTE technologies."
+    },
+    {
+    "id": "extra:editor_and_tools",
+    "text": "Development Environment: Primary editor — Visual Studio Code (VSCode). Experienced with Docker-based workflows, cloud deployment (AWS), CI/CD, and modern front-end frameworks."
+    },
+    {
+    "id": "extra:movie_recommendation_r",
+    "text": "Movie Recommendation (R): Built an AI/movie recommendation system using R with explainable AI techniques to increase model transparency and user trust. Focused on maximizing accuracy while providing model explanations."
+    },
+    {
+    "id": "extra:symptom_chatbot",
+    "text": "Health Chatbot: Created a chatbot that accepts user symptoms, suggests probable diseases, recommends specialist types, lists specialists in the user's area, and assists with booking appointments."
+    },
+    {
+    "id": "extra:career_aspiration_and_mentorship",
+    "text": "Career Goal: Aspires to be an AI Engineer. Actively seeks mentors and collaboration opportunities to grow in AI/ML and production ML systems."
+    },
+    {
+    "id": "extra:team_cipher_pol",
+    "text": "Team: 'Cipher Pol' — a team consisting of Machine Learning engineers and Web developers collaborating on projects and competitions."
+    },
+    {
+    "id": "extra:application_dessa",
+    "text": "Applications: Applied for Deep Learning Research Engineer Intern at Dessa (Block)."
+    },
+    {
+    "id": "extra:participation_codevita",
+    "text": "Competitions: Participated in TCS CodeVita Season XII (Nov 15–16, 2024)."
+    },
+    {
+    "id": "extra:ml_pipeline_work",
+    "text": "ML Pipeline Work: Experience building pipelines with model-based missing value imputation, target encoding, and hyperparameter tuning (e.g., XGBoost) for regression tasks like predicting 'efficiency' from structured datasets."
+    },
+    {
+    "id": "extra:data_cleaning_and_preprocessing",
+    "text": "Data Engineering: Strong knowledge of data cleaning and preprocessing techniques, feature engineering, and handling real-world noisy datasets."
+    },
+    {
+    "id": "extra:tools_and_workflow_preferences",
+    "text": "Preferred Stack & Workflows: Favors Python for ML and backend work, uses Flask/FastAPI for serving models, integrates vector DBs for RAG, and uses Docker + AWS for deployments. Comfortable writing modular, production-ready code and building dashboards for monitoring."
+    },
+    {
+    "id": "extra:publications_and_learning",
+    "text": "Learning & Continuous Improvement: Regularly reads AI research papers, experiments with open-source LLMs, and contributes to GitHub repositories to stay current with state-of-the-art techniques."
+    }
+    ]
+    

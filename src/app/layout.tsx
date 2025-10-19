@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import CursorShine from "./components/CursorShine";
+import KlausWidget from "./components/KlausWidget";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <CursorShine />
         {children}
+        {/* Klaus assistant widget (client-only) */}
+        <KlausWidget />
       </body>
     </html>
   );

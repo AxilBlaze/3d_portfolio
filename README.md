@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Klaus assistant (Gemini-backed)
+
+Create a `.env.local` file with:
+
+```
+GEMINI_API_KEY=your_google_generative_language_api_key
+# Optional overrides
+GEMINI_MODEL=gemini-1.5-flash
+MAIL_TO=sandeepcool2036@gmail.com
+```
+
+Endpoint:
+- `/api/klaus` accepts `{ message: string, history?: {role:'user'|'assistant', content:string}[], pageUrl?: string }` and returns `{ reply: string }`.
+
+Client widget:
+- Floating assistant lives at `src/app/components/KlausWidget.tsx` and is mounted from `src/app/layout.tsx`. It shows an ephemeral "hii" ~0.7s after load and keeps the panel closed until clicked.
