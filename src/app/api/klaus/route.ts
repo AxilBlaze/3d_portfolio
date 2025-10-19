@@ -211,7 +211,17 @@ function selectRelevantFacts(message: string): Fact[] {
   return facts;
 }
 
-function buildPrompt(message: string, history: ChatMessage[]): string {
+function getOriginFromPageUrl(pageUrl?: string): string | null {
+  try {
+    if (!pageUrl) return null;
+    const u = new URL(pageUrl);
+    return u.origin;
+  } catch {
+    return null;
+  }
+}
+
+function buildPrompt(message: string, history: ChatMessage[], pageUrl?: string): string {
   const system = buildSystemPrompt();
   const facts = selectRelevantFacts(message);
   const intent = detectIntent(message);
@@ -225,7 +235,11 @@ function buildPrompt(message: string, history: ChatMessage[]): string {
   const intentLine = intent.name === 'ml'
     ? `\n\nIntent: MACHINE LEARNING. Only answer about machine learning, ML skills, or ML-labeled projects. Ignore unrelated AI-native engineering facts unless they explicitly mention ML.`
     : '';
-  return `${system}${intentLine}${context}\n\n${historyText ? historyText + '\n' : ''}User: ${message}\nAssistant:`;
+  const origin = getOriginFromPageUrl(pageUrl) || process.env.SITE_BASE_URL || '';
+  const linkPolicy = origin
+    ? `\n\nLink policy: Use only these exact links when relevant — Projects: ${origin}/#projects , Resume: ${origin}/Resume.pdf . Do not use other domains.`
+    : `\n\nLink policy: Use only relative links when relevant — Projects: /#projects , Resume: /Resume.pdf .`;
+  return `${system}${intentLine}${linkPolicy}${context}\n\n${historyText ? historyText + '\n' : ''}User: ${message}\nAssistant:`;
 }
 
 async function callGemini(promptText: string): Promise<string> {
@@ -302,7 +316,7 @@ export async function POST(req: Request) {
     const existing = store.get(sessionKey) || [];
     const mergedHistory: ChatMessage[] = [...existing, ...history].slice(-10);
 
-    const prompt = buildPrompt(message, mergedHistory);
+    const prompt = buildPrompt(message, mergedHistory, pageUrl);
     const rawReply = await callGemini(prompt);
     let reply = sanitizeReply(rawReply);
     try {
@@ -318,6 +332,9 @@ export async function POST(req: Request) {
     } catch {
       // if model didn't return JSON, keep original sanitized reply
     }
+
+    // Normalize links to point to the current site sections (projects/resume)
+    reply = rewriteSiteLinks(reply, pageUrl);
 
     const updated: ChatMessage[] = [
       ...mergedHistory,
@@ -398,6 +415,21 @@ function extractGeminiText(data: unknown): string | undefined {
     }>;
   };
   return d?.candidates?.[0]?.content?.parts?.[0]?.text;
+}
+
+function rewriteSiteLinks(answer: string, pageUrl?: string): string {
+  if (!answer) return answer;
+  const origin = getOriginFromPageUrl(pageUrl) || process.env.SITE_BASE_URL || '';
+  const projects = origin ? `${origin}/#projects` : '/#projects';
+  const resume = origin ? `${origin}/Resume.pdf` : '/Resume.pdf';
+  let out = answer;
+  // Replace any references to known old domains pointing to projects
+  out = out.replace(/https?:\/\/[^\s)]+\/#projects/g, projects);
+  // Replace generic 'Projects page' bracketed links if present
+  out = out.replace(/\[Projects[^\]]*\]\([^\)]+\)/gi, `[Projects](${projects})`);
+  // Normalize resume links
+  out = out.replace(/https?:\/\/[^\s)]+\/Resume\.pdf/gi, resume);
+  return out;
 }
 
 
