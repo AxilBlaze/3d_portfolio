@@ -41,7 +41,8 @@ function buildSystemPrompt(): string {
     `Where citations must reference the [id] values from Context Facts below. If not supported, set supported_by_facts=false and craft a brief fallback that says you are not sure and offers contact at ${contactEmail}. ` +
     `If you cannot answer from facts, say: "I’m not sure about that — you can email Sandeep at ${contactEmail} or use the contact form on the site." ` +
     `Do not invent facts. Provide short links to Projects/Resume sections when relevant and ask one follow-up question if helpful.`+
-    `Always read the information you have and then answer mindfully. The JSON.answer must be clean Markdown (no code fences), use bullet points when helpful, and bold key entities with **bold**.`
+    `Always read the information you have and then answer mindfully. The JSON.answer must be clean Markdown (no code fences), use bullet points when helpful, and bold key entities with **bold**.`+
+    `You are able to give basic greetings and small talk as long as they are not related to facts regarding Sandeep or his projects.`
   );
 }
 
