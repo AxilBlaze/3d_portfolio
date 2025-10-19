@@ -45,6 +45,21 @@ function buildSystemPrompt(): string {
   );
 }
 
+function smallTalkReply(message: string): string | null {
+  const q = normalize(message);
+  const greet = /^(hi|hii|hello|hey|yo|hola)\b/;
+  if (greet.test(q)) {
+    return 'Hey! I\'m Klaus — Sandeep\'s portfolio assistant. Ask me about projects, skills, experience, or how to contact him.';
+  }
+  if (/^thank(s| you)\b/.test(q)) {
+    return 'You\'re welcome! If you\'d like, I can share a quick summary of Sandeep\'s recent projects.';
+  }
+  if (/how are you|how\'s it going|hows it going/.test(q)) {
+    return 'Doing great and ready to help. What would you like to know about Sandeep?';
+  }
+  return null;
+}
+
 function normalize(input: string): string {
   return (input || '')
     .toLowerCase()
@@ -273,6 +288,12 @@ export async function POST(req: Request) {
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return NextResponse.json({ reply: 'Please type a question for me to help with. — Klaus' }, { status: 200 });
+    }
+
+    // Handle small-talk/greetings locally for natural responses without strict grounding
+    const chit = smallTalkReply(message);
+    if (chit) {
+      return NextResponse.json({ reply: chit });
     }
 
     // Persist conversation per page as a lightweight key (better: use a proper session id)
