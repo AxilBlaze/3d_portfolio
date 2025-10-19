@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
 
 const CertificatesSection = () => {
   const [progress, setProgress] = useState(0)
@@ -200,10 +201,12 @@ const CertificatesSection = () => {
                 }}
               >
                 <div className="w-full h-full rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 relative">
-                  <img 
+                  <Image 
                     src={cert.image} 
                     alt={cert.title} 
-                    className="absolute inset-0 w-full h-full object-cover" 
+                    fill 
+                    sizes="(max-width: 768px) 90vw, 320px" 
+                    className="object-cover absolute inset-0" 
                     style={{ filter: `brightness(${brightness}) saturate(${saturate})` }}
                   />
                   <div className="absolute inset-0" style={{ backgroundColor: `rgba(0,0,0,${overlayAlpha})` }} />
