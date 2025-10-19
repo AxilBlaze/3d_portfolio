@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import EducationTimeline from './EducationTimeline';
 import CertificatesSection from './CertificatesSection';
 
@@ -104,23 +105,23 @@ const Features = () => {
             {/* Row 1 */}
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-16">
               <div className="flex flex-col items-center">
-                <img src="/TensorFlow_logo.svg.png" alt="TensorFlow" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/TensorFlow_logo.svg.png" alt="TensorFlow" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">TensorFlow</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/keras.png" alt="Keras" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/keras.png" alt="Keras" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Keras</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/scikit_learn.png" alt="Scikit-learn" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/scikit_learn.png" alt="Scikit-learn" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Scikit-learn</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/open_cv.png" alt="OpenCV" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/open_cv.png" alt="OpenCV" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">OpenCV</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/cuda.png" alt="CUDA" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/cuda.png" alt="CUDA" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">CUDA</span>
               </div>
             </div>
@@ -128,23 +129,23 @@ const Features = () => {
             {/* Row 2 */}
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-16">
               <div className="flex flex-col items-center">
-                <img src="/flask.png" alt="Flask" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/flask.png" alt="Flask" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Flask</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/python.jpeg" alt="Python" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain rounded-full hover:scale-110 transition-transform duration-300" />
+                <Image src="/python.jpeg" alt="Python" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain rounded-full hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Python</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/sql.png" alt="SQL" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/sql.png" alt="SQL" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">SQL</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/nextjs.png" alt="Next.js" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/nextjs.png" alt="Next.js" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Next.js</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/tailwind-css.png" alt="Tailwind" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/tailwind-css.png" alt="Tailwind" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Tailwind</span>
               </div>
             </div>
@@ -152,19 +153,19 @@ const Features = () => {
             {/* Row 3 */}
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-20">
               <div className="flex flex-col items-center">
-                <img src="/NLTK.png" alt="NLTK" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/NLTK.png" alt="NLTK" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">NLTK</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/hugging face.png" alt="Development" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/hugging face.png" alt="Development" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Hugging Face</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/django.png" alt="django" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/django.png" alt="django" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">django</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/gemini.png" alt="gemini" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/gemini.png" alt="gemini" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Gemini</span>
               </div>
               
@@ -172,15 +173,15 @@ const Features = () => {
             {/* Row 4 (New additions) */}
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-16">
               <div className="flex flex-col items-center">
-                <img src="/reactjs.png" alt="React" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/reactjs.png" alt="React" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">React</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/docker.png" alt="Docker" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/docker.png" alt="Docker" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">Docker</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="/AWS.png" alt="AWS" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+                <Image src="/AWS.png" alt="AWS" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
                 <span className="mt-2 text-gray-600 text-sm">AWS</span>
               </div>
             </div>
