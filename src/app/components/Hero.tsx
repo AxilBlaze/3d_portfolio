@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import ParticleWireBackground from './ParticleWireBackground';
 import { FaLinkedin, FaGithub, FaCode } from 'react-icons/fa';
 
@@ -117,9 +118,12 @@ const Hero = () => {
             </div>
           </div>
           <div className="hidden lg:block w-5/6 relative translate-x-20 -translate-y-8">
-            <img
+            <Image
               src="/brain.png"
               alt="Brain visualization"
+              width={1200}
+              height={1200}
+              priority
               className="w-full h-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 animate-brain-rotate"
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(99,102,241,0.3))',

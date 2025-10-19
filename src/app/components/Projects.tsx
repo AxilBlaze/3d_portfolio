@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from 'react';
+import Image from 'next/image';
 import { AiOutlineInfoCircle, AiOutlineClose } from 'react-icons/ai';
 
 type Project = {
@@ -21,7 +22,7 @@ const initialProjects: Project[] = [
     imageSrc: '/projects/project-1.png',
     liveUrl: 'https://the-oj-project.vercel.app/',
     videoUrl: 'https://www.loom.com/share/11d561e2a78a4d25aff85c16116326fe?sid=007cf708-84c4-4109-a75c-b5ff29b32f59',
-    techIconSrcs: ['/nextjs.png', '/tailwind-css.png', '/django.png', '/sql.png', '/vercel.svg', '/reactjs.png', '/docker.png', '/gemini.png','/AWS.png'],
+    techIconSrcs: ['/nextjs.png', '/tailwind-css.png', '/django.png', '/sql.png', '/reactjs.png', '/docker.png', '/gemini.png','/AWS.png'],
     info:
       'Codeblaze is a next-gen online judge platform for coders and competitive programmers. It features user profiles, problem catalogs, a Monaco-based code editor, real-time feedback via WebSockets, and a secure Docker-powered judging system.',
     techBullets: [
@@ -37,7 +38,7 @@ const initialProjects: Project[] = [
     imageSrc: '/projects/project-2.png',
     liveUrl: 'https://course-craft-front.vercel.app/',
     videoUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:XXXXXXX/',
-    techIconSrcs: ['/reactjs.png', '/tailwind-css.png', '/flask.png', '/mongodb.webp', '/python.jpeg', '/vercel.svg', '/hugging face.png'],
+    techIconSrcs: ['/reactjs.png', '/tailwind-css.png', '/flask.png', '/mongodb.webp', '/python.jpeg', '/hugging face.png'],
     info:
       'CourseCraft is an AI-powered learning platform that delivers personalized tutoring, adaptive learning paths, and ML-driven course recommendations. It features an interactive dashboard, real-time AI chat tutor, and secure user management with a modern responsive UI.',
     techBullets: [
@@ -52,7 +53,7 @@ const initialProjects: Project[] = [
     imageSrc: '/projects/project-3.png',
     liveUrl: 'https://walmart-bot-frontend.vercel.app/',
     videoUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7365407259855568897/',
-    techIconSrcs: ['/scikit_learn.png','/reactjs.png', '/tailwind-css.png', '/flask.png', '/python.jpeg', '/gemini.png','/vercel.svg'],
+    techIconSrcs: ['/scikit_learn.png','/reactjs.png', '/tailwind-css.png', '/flask.png', '/python.jpeg', '/gemini.png'],
     
     info:
       'Walmart AI Grocery Assistant is a shopping copilot that lets users build and refine grocery lists via chat, extract items from images/PDFs with OCR, and get product recommendations through market-basket analysis. Powered by Google Gemini for natural-language understanding, it integrates Cloudinary for uploads and a Chrome extension to streamline actions on walmart.com, with sessions maintaining context and outputs returned as JSON.',
@@ -112,7 +113,7 @@ const Projects: React.FC = () => {
                       <AiOutlineInfoCircle size={22} />
                     </button>
                     <div className="absolute inset-0 hidden lg:block lg:bg-black/70 lg:group-hover:bg-black/0 transition-colors duration-300 z-10" />
-                    <img src={project.imageSrc} alt={project.title} className="w-full h-full object-cover opacity-100 lg:opacity-40 lg:group-hover:opacity-100 transition-opacity duration-300 filter brightness-110 saturate-125 lg:brightness-100 lg:saturate-100" />
+                    <Image src={project.imageSrc} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-100 lg:opacity-40 lg:group-hover:opacity-100 transition-opacity duration-300 filter brightness-110 saturate-125 lg:brightness-100 lg:saturate-100" />
                     <div className="absolute inset-0 flex flex-col justify-between p-6 z-20">
                       <div>
                         <span className="inline-block bg-white/70 backdrop-blur px-3 py-1 rounded-md">
@@ -122,7 +123,7 @@ const Projects: React.FC = () => {
                       <div className="flex items-end justify-between">
                         <div className="flex flex-wrap gap-3 max-w-[75%] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                           {project.techIconSrcs.map((src) => (
-                            <img key={src} src={src} alt="tech" className="w-10 h-10 object-contain rounded-sm bg-black p-1" />
+                            <Image key={src} src={src} alt="tech" width={40} height={40} className="w-10 h-10 object-contain rounded-sm bg-black p-1" />
                           ))}
                           {project.techBadges?.map((label) => (
                             <span key={label} className="text-xs font-medium text-white bg-black px-2.5 py-1 rounded-md">{label}</span>
