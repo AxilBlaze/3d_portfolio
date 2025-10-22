@@ -87,17 +87,17 @@ const Projects: React.FC = () => {
   const [flipped, setFlipped] = useState<Record<number, boolean>>({});
 
   return (
-    <section className="relative py-24 bg-black">
+    <section className="relative py-12 sm:py-16 lg:py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-5xl sm:text-6xl tracking-widest font-extrabold text-white text-center mb-16">PROJECTS</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <h2 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl tracking-widest font-extrabold text-white text-center mb-8 sm:mb-12 lg:mb-16">PROJECTS</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
           {projects.map((project, i) => {
             const isFlipped = !!flipped[i];
             return (
             <article key={project.title} className="relative">
               <div className="group" style={{ perspective: 1000 }}>
                 <div
-                  className="relative h-72 w-full"
+                  className="relative h-64 sm:h-72 w-full"
                   style={{
                     transformStyle: 'preserve-3d',
                     transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -114,30 +114,30 @@ const Projects: React.FC = () => {
                     </button>
                     <div className="absolute inset-0 hidden lg:block lg:bg-black/70 lg:group-hover:bg-black/0 transition-colors duration-300 z-10" />
                     <Image src={project.imageSrc} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-100 lg:opacity-40 lg:group-hover:opacity-100 transition-opacity duration-300 filter brightness-110 saturate-125 lg:brightness-100 lg:saturate-100" />
-                    <div className="absolute inset-0 flex flex-col justify-between p-6 z-20">
+                    <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 z-20">
                       <div>
-                        <span className="inline-block bg-white/70 backdrop-blur px-3 py-1 rounded-md">
-                          <h3 className="text-3xl font-extrabold text-black tracking-tight">{project.title}</h3>
+                        <span className="inline-block bg-white/70 backdrop-blur px-2 sm:px-3 py-1 rounded-md">
+                          <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-black tracking-tight">{project.title}</h3>
                         </span>
                       </div>
-                      <div className="flex items-end justify-between">
-                        <div className="flex flex-wrap gap-3 max-w-[75%] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-0">
+                        <div className="flex flex-wrap gap-2 sm:gap-3 max-w-full sm:max-w-[75%] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                           {project.techIconSrcs.map((src) => (
-                            <Image key={src} src={src} alt="tech" width={40} height={40} className="w-10 h-10 object-contain rounded-sm bg-black p-1" />
+                            <Image key={src} src={src} alt="tech" width={32} height={32} className="w-8 h-8 sm:w-10 sm:h-10 object-contain rounded-sm bg-black p-1" />
                           ))}
                           {project.techBadges?.map((label) => (
-                            <span key={label} className="text-xs font-medium text-white bg-black px-2.5 py-1 rounded-md">{label}</span>
+                            <span key={label} className="text-xs font-medium text-white bg-black px-2 py-1 rounded-md">{label}</span>
                           ))}
                         </div>
-                        <div className="flex gap-3">
+                        <div className="flex flex-wrap gap-2 sm:gap-3">
                           {project.liveUrl && (
-                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-4 py-2 rounded-lg hover:bg-black/80 transition-colors duration-200">Link</a>
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-black/80 transition-colors duration-200 text-sm">Link</a>
                           )}
                           {project.videoUrl && (
-                            <a href={project.videoUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-4 py-2 rounded-lg hover:bg-black/80 transition-colors duration-200">Video</a>
+                            <a href={project.videoUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-black/80 transition-colors duration-200 text-sm">Video</a>
                           )}
                           {project.repoUrl && (
-                            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="bg-white/10 text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-colors duration-200">Github</a>
+                            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="bg-white/10 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-white/20 transition-colors duration-200 text-sm">Github</a>
                           )}
                         </div>
                       </div>
@@ -145,18 +145,18 @@ const Projects: React.FC = () => {
                   </div>
                   {/* Back */}
                   <div
-                    className="absolute inset-0 rounded-2xl border border-white/10 bg-black text-white p-5 overflow-y-auto"
+                    className="absolute inset-0 rounded-2xl border border-white/10 bg-black text-white p-4 sm:p-5 overflow-y-auto"
                     style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', pointerEvents: isFlipped ? 'auto' : 'none' }}
                   >
                     <button aria-label="Close" className="absolute top-3 right-3 z-30 text-white/90 hover:text-white" onClick={() => setFlipped(prev => ({ ...prev, [i]: false }))}>
                       <AiOutlineClose size={20} />
                     </button>
-                    <h4 className="text-xl font-bold mb-2">About</h4>
-                    {project.info && <p className="text-sm text-gray-200 mb-4">{project.info}</p>}
+                    <h4 className="text-lg sm:text-xl font-bold mb-2">About</h4>
+                    {project.info && <p className="text-xs sm:text-sm text-gray-200 mb-4 leading-relaxed">{project.info}</p>}
                     {project.techBullets && (
                       <div>
-                        <h5 className="text-sm font-semibold mb-1">Tech Stack</h5>
-                        <ul className="list-disc list-inside text-sm text-gray-200 space-y-1 pr-2">
+                        <h5 className="text-xs sm:text-sm font-semibold mb-1">Tech Stack</h5>
+                        <ul className="list-disc list-inside text-xs sm:text-sm text-gray-200 space-y-1 pr-2">
                           {project.techBullets.map((b) => (
                             <li key={b}>{b}</li>
                           ))}

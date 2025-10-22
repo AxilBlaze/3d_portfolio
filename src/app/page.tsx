@@ -7,13 +7,13 @@ import Projects from './components/Projects';
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen relative overflow-x-hidden">
       {/* Content layers */}
       <div className="relative z-10">
-      <Hero />
-      <Features />
-      <Projects />
-      <Footer />
+        <Hero />
+        <Features />
+        <Projects />
+        <Footer />
       </div>
     </main>
   );

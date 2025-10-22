@@ -365,12 +365,25 @@ const EducationTimeline: React.FC = () => {
         .timeline-item.animate .progress-fill.cgpa-progress { width: 85.8%; }
 
         @media (max-width: 768px) {
-          .timeline::before { left: 30px; }
-          .timeline-item { text-align: left !important; padding-left: 70px !important; padding-right: 20px !important; }
-          .timeline-dot { left: 30px !important; }
-          .timeline-content::before { left: -30px !important; right: auto !important; border-right-color: rgba(255, 255, 255, 0.1) !important; border-left-color: transparent !important; }
-          .header h1 { font-size: 2rem; }
-          .timeline-title { font-size: 1.5rem; }
+          .timeline::before { left: 20px; }
+          .timeline-item { text-align: left !important; padding-left: 50px !important; padding-right: 15px !important; margin: 40px 0; }
+          .timeline-dot { left: 20px !important; width: 16px; height: 16px; }
+          .timeline-content::before { left: -25px !important; right: auto !important; border-right-color: rgba(255, 255, 255, 0.1) !important; border-left-color: transparent !important; width: 0; height: 0; border: 12px solid transparent; }
+          .header h1 { font-size: 1.8rem; }
+          .timeline-title { font-size: 1.3rem; }
+          .timeline-content { padding: 20px; }
+          .container { padding: 20px 15px; }
+        }
+        
+        @media (max-width: 480px) {
+          .timeline::before { left: 15px; }
+          .timeline-item { padding-left: 40px !important; padding-right: 10px !important; margin: 30px 0; }
+          .timeline-dot { left: 15px !important; width: 14px; height: 14px; }
+          .timeline-content::before { left: -20px !important; width: 0; height: 0; border: 10px solid transparent; }
+          .header h1 { font-size: 1.5rem; }
+          .timeline-title { font-size: 1.1rem; }
+          .timeline-content { padding: 15px; }
+          .container { padding: 15px 10px; }
         }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }

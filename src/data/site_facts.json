@@ -19,6 +19,18 @@
     "id": "education:vit-bhopal",
     "text": "VIT Bhopal University — Bachelor of Technology in Computer Science and Engineering, CGPA 8.58, 2022–2026."
     },
+  {
+  "id": "education:degree",
+  "text": "Degree: Bachelor of Technology (B.Tech); College/University: VIT Bhopal University."
+  },
+  {
+  "id": "education:class-10",
+  "text": "Class 10th Board: CBSE; School: Kendriya Vidyalaya No. 5, Kalinga Nagar, Bhubaneswar, Odisha."
+  },
+  {
+  "id": "education:class-12",
+  "text": "Class 12th Board: CBSE; School: Kendriya Vidyalaya No. 5, Kalinga Nagar, Bhubaneswar, Odisha."
+  },
     {
     "id": "experience:algouniversity",
     "text": "AlgoUniversity (YC S21) — SWE Co-Op Intern (May 2025–Present, Remote). Architected CodeBlaze (500+ active users) with Docker-based compilers, React + Tailwind UI, and an admin console. Scaled Django/DRF backend handling 10K+ submissions/day. Deployed on AWS EC2 + Nginx with Docker workers and Vercel frontend (99.9% uptime). Built 'Ember', an AI coding assistant using Google Gemini for code analysis, evaluation, and intelligent hints."

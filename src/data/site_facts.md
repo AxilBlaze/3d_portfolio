@@ -35,8 +35,14 @@ Sandeep Balabantaray is passionate about building intelligent, data-driven syste
 
   * CGPA: **8.58**
   * Years: **2022–2026**
+  * Board: **University**
+  * College/University: **VIT Bhopal University**
 * **Class 12**: **94.6%**
+  * Board: **CBSE**
+  * School: **Kendriya Vidyalaya No:5, Kalinga Nagar, Bhubaneswar, Odisha**
 * **Class 10**: **91.4%**
+  * Board: **CBSE**
+  * School: **Kendriya Vidyalaya No:5, Kalinga Nagar, Bhubaneswar, Odisha**
 
 ---
 

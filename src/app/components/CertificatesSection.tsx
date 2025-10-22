@@ -133,16 +133,16 @@ const CertificatesSection = () => {
       >
         {/* Main Title */}
         <div 
-          className="relative z-20 text-center transition-all duration-300 ease-out"
+          className="relative z-20 text-center transition-all duration-300 ease-out px-4"
           style={{
             opacity: Math.max(titleOpacity, 0),
             transform: `translateY(${titleTranslateY}px) scale(${titleScale})`
           }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Certifications
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mt-4 font-light">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 mt-2 sm:mt-4 font-light">
             Professional Achievements & Recognition
           </p>
         </div>
@@ -193,7 +193,7 @@ const CertificatesSection = () => {
             return (
               <div
                 key={`${cert.id}-${i}`}
-                className="absolute top-1/2 left-1/2 w-80 h-48 transition-all duration-200 ease-out"
+                className="absolute top-1/2 left-1/2 w-64 h-40 sm:w-72 sm:h-44 md:w-80 md:h-48 transition-all duration-200 ease-out"
                 style={{
                   transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotateZ(${rot}deg) scale(${scale})`,
                   opacity: cardOpacity * visibilityOpacity,
@@ -205,7 +205,7 @@ const CertificatesSection = () => {
                     src={cert.image} 
                     alt={cert.title} 
                     fill 
-                    sizes="(max-width: 768px) 90vw, 320px" 
+                    sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px" 
                     className="object-cover absolute inset-0" 
                     style={{ filter: `brightness(${brightness}) saturate(${saturate})` }}
                   />

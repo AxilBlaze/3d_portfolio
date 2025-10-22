@@ -42,148 +42,112 @@ const Features = () => {
   return (
     <div
       ref={featuresRef}
-      className="py-12"
+      className="py-8 sm:py-12"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-6 sm:gap-8">
         {/* Education timeline above the tech stack */}
         <EducationTimeline />
         {/* Main Content Box with SVG */}
-        <div className={`w-full max-w-full flex flex-col items-center justify-start py-12 md:py-20 px-4 sm:px-8 md:px-16 lg:px-40 rounded-lg ${background === 'white' ? 'bg-white-pattern' : background === 'black' ? 'bg-black-pattern' : ''} transition-colors duration-1000 ease-in-out`}>
-          {/* SVG Title */}
-          <div className="w-full flex justify-center items-start -mt-6 sm:-mt-10 md:-mt-20">
-            <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" className="mb-4 w-full max-w-[800px] h-auto" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style={{ stopColor: '#2d3748', stopOpacity: 1 }} />
-                  <stop offset="50%" style={{ stopColor: '#4a5568', stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: '#718096', stopOpacity: 1 }} />
-                </linearGradient>
-                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="#1a202c" floodOpacity="0.3"/>
-                </filter>
-              </defs>
-              
-              {/* Main text */}
-              <text x="400" y="80" 
-                    style={{ fontFamily: 'Arial, sans-serif', fontSize: '48px', fontWeight: 'bold' }}
-                    textAnchor="middle" 
-                    fill="url(#textGradient)"
-                    filter="url(#shadow)">
+        <div className={`w-full max-w-full flex flex-col items-center justify-start py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-40 rounded-lg ${background === 'white' ? 'bg-white-pattern' : background === 'black' ? 'bg-black-pattern' : ''} transition-colors duration-1000 ease-in-out`}>
+          {/* Responsive Title */}
+          <div className="w-full flex flex-col items-center justify-center -mt-4 sm:-mt-6 md:-mt-10 lg:-mt-20 mb-4 sm:mb-6">
+            <div className="text-center">
+              <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-gray-200 mb-2">
                 YOUR
-              </text>
-              
-              <text x="400" y="140" 
-                    style={{ fontFamily: 'Arial, sans-serif', fontSize: '42px', fontWeight: '300' }}
-                    textAnchor="middle" 
-                    fill="#4a5568"
-                    letterSpacing="2px">
+              </h2>
+              <h3 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-600 dark:text-gray-400 mb-2 tracking-wider">
                 MACHINE LEARNING
-              </text>
-              
-              <text x="400" y="180" 
-                    style={{ fontFamily: 'Arial, sans-serif', fontSize: '38px', fontWeight: 'bold' }}
-                    textAnchor="middle" 
-                    fill="url(#textGradient)"
-                    filter="url(#shadow)">
+              </h3>
+              <h4 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-gray-200">
                 EXPERT
-              </text>
-              
-              {/* Decorative elements */}
-              <line x1="150" y1="100" x2="250" y2="100" stroke="#718096" strokeWidth="2" opacity="0.6"/>
-              <line x1="550" y1="100" x2="650" y2="100" stroke="#718096" strokeWidth="2" opacity="0.6"/>
-              
-              {/* Tech-inspired dots */}
-              <circle cx="120" cy="100" r="3" fill="#4a5568" opacity="0.7"/>
-              <circle cx="680" cy="100" r="3" fill="#4a5568" opacity="0.7"/>
-              <circle cx="100" cy="100" r="1.5" fill="#718096" opacity="0.5"/>
-              <circle cx="700" cy="100" r="1.5" fill="#718096" opacity="0.5"/>
-            </svg>
+              </h4>
+            </div>
+            
+            {/* Decorative elements */}
+            <div className="flex items-center justify-center gap-4 sm:gap-8 mt-4">
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                <div className="w-8 sm:w-12 h-0.5 bg-gray-400"></div>
+                <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+                <div className="w-8 sm:w-12 h-0.5 bg-gray-400"></div>
+                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+              </div>
+            </div>
           </div>
 
-          {/* All Images in Three Rows */}
-          <div className="w-full flex flex-col gap-8 mt-4 px-4">
-            {/* Row 1 */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-16">
-              <div className="flex flex-col items-center">
-                <Image src="/TensorFlow_logo.svg.png" alt="TensorFlow" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">TensorFlow</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/keras.png" alt="Keras" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Keras</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/scikit_learn.png" alt="Scikit-learn" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Scikit-learn</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/open_cv.png" alt="OpenCV" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">OpenCV</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/cuda.png" alt="CUDA" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">CUDA</span>
-              </div>
+          {/* All Images in Responsive Grid */}
+          <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-4 px-2 sm:px-4">
+            <div className="flex flex-col items-center">
+              <Image src="/TensorFlow_logo.svg.png" alt="TensorFlow" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">TensorFlow</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/keras.png" alt="Keras" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Keras</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/scikit_learn.png" alt="Scikit-learn" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Scikit-learn</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/open_cv.png" alt="OpenCV" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">OpenCV</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/cuda.png" alt="CUDA" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">CUDA</span>
             </div>
 
-            {/* Row 2 */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-16">
-              <div className="flex flex-col items-center">
-                <Image src="/flask.png" alt="Flask" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Flask</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/python.jpeg" alt="Python" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain rounded-full hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Python</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/sql.png" alt="SQL" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">SQL</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/nextjs.png" alt="Next.js" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Next.js</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/tailwind-css.png" alt="Tailwind" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Tailwind</span>
-              </div>
+            <div className="flex flex-col items-center">
+              <Image src="/flask.png" alt="Flask" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Flask</span>
             </div>
-
-            {/* Row 3 */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-20">
-              <div className="flex flex-col items-center">
-                <Image src="/NLTK.png" alt="NLTK" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">NLTK</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/hugging face.png" alt="Development" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Hugging Face</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/django.png" alt="django" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">django</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/gemini.png" alt="gemini" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Gemini</span>
-              </div>
-              
+            <div className="flex flex-col items-center">
+              <Image src="/python.jpeg" alt="Python" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain rounded-full hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Python</span>
             </div>
-            {/* Row 4 (New additions) */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-16">
-              <div className="flex flex-col items-center">
-                <Image src="/reactjs.png" alt="React" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">React</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/docker.png" alt="Docker" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">Docker</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Image src="/AWS.png" alt="AWS" width={112} height={112} className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-                <span className="mt-2 text-gray-600 text-sm">AWS</span>
-              </div>
+            <div className="flex flex-col items-center">
+              <Image src="/sql.png" alt="SQL" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">SQL</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/nextjs.png" alt="Next.js" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Next.js</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/tailwind-css.png" alt="Tailwind" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Tailwind</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/NLTK.png" alt="NLTK" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">NLTK</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/hugging face.png" alt="Development" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Hugging Face</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/django.png" alt="django" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">django</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/gemini.png" alt="gemini" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Gemini</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/reactjs.png" alt="React" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">React</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/docker.png" alt="Docker" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Docker</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/AWS.png" alt="AWS" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">AWS</span>
             </div>
           </div>
         </div>

@@ -38,8 +38,8 @@ function buildSystemPrompt(): string {
     `Keep replies concise (1–5 short lines) and speak in first person. Do not add any signature lines. ` +
     `You MUST only answer if supported by the provided facts. ` +
     `Respond STRICTLY in JSON with the following schema: {"answer": string, "supported_by_facts": boolean, "citations": string[]} ` +
-    `Where citations must reference the [id] values from Context Facts below. If not supported, set supported_by_facts=false and craft a brief fallback that says you are not sure and offers contact at ${contactEmail}. ` +
-    `If you cannot answer from facts, say: "I’m not sure about that — you can email Sandeep at ${contactEmail} or use the contact form on the site." ` +
+    `Where citations must reference ONLY the exact [id] values from Context Facts below (no invented ids). If ANY citation is not present in Context Facts, you MUST set supported_by_facts=false. If not supported, set supported_by_facts=false and craft a brief, natural fallback that acknowledges the user's intent (e.g., if they ask for a phone number, say you don't have it) and offer contact at ${contactEmail} or the contact form. ` +
+    `If you cannot answer from facts, politely say you don't have that information and offer to connect via email at ${contactEmail} or the contact form. Do not output any specific phone numbers or private data unless explicitly present in Context Facts.` +
     `Do not invent facts. Provide short links to Projects/Resume sections when relevant and ask one follow-up question if helpful.`+
     `Always read the information you have and then answer mindfully. The JSON.answer must be clean Markdown (no code fences), use bullet points when helpful, and bold key entities with **bold**.`+
     `You are able to give basic greetings and small talk as long as they are not related to facts regarding Sandeep or his projects.`
@@ -99,9 +99,10 @@ function similarityScore(queryTokens: string[], factText: string, factId: string
         score += 2; // strong partial/exact
         break;
       }
-      if (q.length >= 5 && t.length >= 5) {
+      if (q.length >= 4 && t.length >= 4) {
         const dist = levenshtein(q, t);
-        if (dist <= 1) { // minor typo tolerance
+        // allow a bit more fuzziness to catch common typos like 'scholl' vs 'school', 'cllg' vs 'college'
+        if (dist <= 2) {
           score += 1;
           break;
         }
@@ -317,25 +318,7 @@ export async function POST(req: Request) {
     const existing = store.get(sessionKey) || [];
     const mergedHistory: ChatMessage[] = [...existing, ...history].slice(-10);
 
-    const prompt = buildPrompt(message, mergedHistory, pageUrl);
-    const rawReply = await callGemini(prompt);
-    let reply = sanitizeReply(rawReply);
-    try {
-      const extracted = extractJsonFromText(rawReply);
-      const parsed = extracted ? (JSON.parse(extracted) as { answer?: string; supported_by_facts?: boolean; citations?: string[] }) : undefined;
-      if (parsed && typeof parsed.answer === 'string') {
-        if (parsed.supported_by_facts && Array.isArray(parsed.citations) && parsed.citations.length > 0) {
-          reply = sanitizeReply(parsed.answer);
-        } else {
-          reply = `I’m not sure about that — you can email Sandeep at ${getContactEmail()} or use the contact form on the site.`;
-        }
-      }
-    } catch {
-      // if model didn't return JSON, keep original sanitized reply
-    }
-
-    // Normalize links to point to the current site sections (projects/resume)
-    reply = rewriteSiteLinks(reply, pageUrl);
+    const reply = await routerAgent(message, mergedHistory, pageUrl);
 
     const updated: ChatMessage[] = [
       ...mergedHistory,
@@ -433,4 +416,290 @@ function rewriteSiteLinks(answer: string, pageUrl?: string): string {
   return out;
 }
 
+
+// ===== Agentic RAG helpers (embeddings + router) =====
+function expandUserQuery(message: string): string {
+  const q = normalize(message);
+  // very small synonym expansions for common short typos
+  if (/\bclg|cllg|college\b/.test(q)) {
+    return `${message} college education university`;
+  }
+  if (/\bschl|scholl|school\b/.test(q)) {
+    return `${message} school education academics`; 
+  }
+  if (/\bedu|education\b/.test(q)) {
+    return `${message} VIT Bhopal University CGPA bachelor`;
+  }
+  // program/degree semantics (general, not hard-coded to any school)
+  if (/\bdegree|program|course\b/.test(q)) {
+    return `${message} bachelor masters b.tech b.e. bs ms program`;
+  }
+  if (/\benroll|enrolled|studying|study\b/.test(q)) {
+    return `${message} degree program university college`;
+  }
+  return message;
+}
+
+type KbVec = { id: string; text: string; embedding: number[] };
+
+function cosineSim(a: number[], b: number[]): number {
+  let dot = 0; let na = 0; let nb = 0;
+  const n = Math.min(a.length, b.length);
+  for (let i = 0; i < n; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
+  if (na === 0 || nb === 0) return 0;
+  return dot / (Math.sqrt(na) * Math.sqrt(nb));
+}
+
+let __kbCache: KbVec[] | null = null;
+function loadKbVectors(): KbVec[] {
+  if (__kbCache) return __kbCache;
+  try {
+    const p = path.join(process.cwd(), 'src', 'data', 'kb_embeddings.json');
+    if (fs.existsSync(p)) {
+      const raw = fs.readFileSync(p, 'utf8');
+      const arr = JSON.parse(raw) as KbVec[];
+      __kbCache = Array.isArray(arr) ? arr : [];
+      return __kbCache;
+    }
+  } catch (e) {
+    console.error('[Klaus] loadKbVectors failed', e);
+  }
+  __kbCache = [];
+  return __kbCache;
+}
+
+async function embedQuery(text: string): Promise<number[] | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+  const model = process.env.GEMINI_EMBED_MODEL || 'text-embedding-004';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:embedContent?key=${apiKey}`;
+  const payload = { content: { parts: [{ text }] }, taskType: 'RETRIEVAL_QUERY' } as const;
+  const resp = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  if (!resp.ok) { console.error('[Klaus] embedQuery error', resp.status); return null; }
+  const j: any = await resp.json().catch(() => ({}));
+  const vals: number[] = j?.embedding?.values || j?.embedding?.value || j?.embeddings?.[0]?.values || j?.embeddings?.[0]?.value || [];
+  return Array.isArray(vals) && vals.length > 0 ? vals.map(Number) : null;
+}
+
+type SourceFilter = 'any' | 'kb' | 'li';
+function idHasSource(id: string, src: SourceFilter): boolean {
+  if (src === 'any') return true;
+  return id.startsWith(src + ':');
+}
+
+async function retrieveEmbeddingFactsScoped(query: string, k = 6, src: SourceFilter = 'any'): Promise<Fact[]> {
+  const kb = loadKbVectors();
+  if (kb.length === 0) return [];
+  const qEmb = await embedQuery(query);
+  if (!qEmb) return [];
+  const shortQuery = (query || '').trim().split(/\s+/).filter(Boolean).length <= 3;
+  const cutoff = shortQuery ? 0.1 : 0.2;
+  const scored = kb
+    .filter((d) => idHasSource(d.id, src))
+    .map((d) => ({ d, s: cosineSim(qEmb, d.embedding) }))
+    .sort((a, b) => b.s - a.s)
+    .slice(0, k)
+    .filter((x) => x.s > cutoff)
+    .map(({ d }) => ({ id: d.id, text: d.text }));
+  return scored;
+}
+
+function classifyDomain(message: string): SourceFilter {
+  const q = normalize(message);
+  const liHints = [
+    'linkedin', 'resume', 'cv', 'work history', 'work experience', 'experience',
+    'job', 'roles', 'positions', 'employer', 'company', 'education', 'certification',
+    'skills', 'endorsements', 'recommendations',
+  ];
+  if (liHints.some((k) => q.includes(k))) return 'li';
+  const kbHints = ['portfolio', 'project', 'this site', 'on your site'];
+  if (kbHints.some((k) => q.includes(k))) return 'kb';
+  return 'any';
+}
+
+function formatContextFacts(facts: Fact[]): string {
+  return facts.length
+    ? `\n\nContext Facts (cite by [id]):\n${facts.map((f) => `- [${f.id}] ${f.text}`).join('\n')}`
+    : '';
+}
+
+// Unified retrieval: embeddings first; if empty/weak, fall back to lexical facts
+async function retrieveUnifiedFacts(query: string, k: number, src: SourceFilter): Promise<Fact[]> {
+  const emb = await retrieveEmbeddingFactsScoped(query, k, src);
+  if (emb.length > 0) return emb;
+  // fallback to lexical using existing selector but without limiting to src prefixes (site facts are all kb)
+  const lexical = selectRelevantFacts(query);
+  return lexical.slice(0, k);
+}
+
+async function improveQueries(message: string, facts: Fact[]): Promise<string[]> {
+  const prompt = [
+    'You will write up to 3 concise search queries for a vector DB to answer the user.',
+    'Use only essential keywords and entities; each under 8 words.',
+    'Return JSON array of strings, no prose.',
+    '',
+    `User: ${message}`,
+    facts.length ? `Known facts:\n${facts.map((f) => `- ${f.text}`).join('\n')}` : '',
+  ].join('\n');
+  const raw = await callGemini(prompt);
+  try {
+    const json = extractJsonFromText(raw) || raw;
+    const arr = JSON.parse(json);
+    return Array.isArray(arr) ? arr.filter((x) => typeof x === 'string').slice(0, 3) : [];
+  } catch {
+    return [];
+  }
+}
+
+async function agentAnswerScoped(message: string, history: ChatMessage[], pageUrl: string | undefined, src: SourceFilter): Promise<string> {
+  const origin = getOriginFromPageUrl(pageUrl) || process.env.SITE_BASE_URL || '';
+  let workingQuery = expandUserQuery(message);
+  for (let turn = 0; turn < 2; turn++) {
+    const facts = await retrieveUnifiedFacts(workingQuery, 6, src);
+
+    const system = buildSystemPrompt();
+    const linkPolicy = origin
+      ? `\n\nLink policy: Use only these exact links when relevant — Projects: ${origin}/#projects , Resume: ${origin}/Resume.pdf .`
+      : `\n\nLink policy: Use only relative links when relevant — Projects: /#projects , Resume: /Resume.pdf .`;
+    const historyText = history.slice(-10).map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n');
+    const prompt = `${system}${linkPolicy}${formatContextFacts(facts)}\n\n${historyText ? historyText + '\n' : ''}User: ${message}\nAssistant:`;
+
+    const raw = await callGemini(prompt);
+    try {
+      const extracted = extractJsonFromText(raw);
+      if (extracted) {
+        const parsed = JSON.parse(extracted) as { answer?: string; supported_by_facts?: boolean; citations?: string[] };
+        const contextIds = new Set(facts.map((f) => f.id));
+        const allCitationsValid = Array.isArray(parsed?.citations) && parsed.citations.length > 0 && parsed.citations.every((c) => contextIds.has(c));
+        if (parsed?.supported_by_facts && allCitationsValid && parsed.answer) {
+          return rewriteSiteLinks(sanitizeReply(parsed.answer), pageUrl);
+        }
+        // If unsupported, allow a natural fallback generated by the model
+        if (parsed && parsed.supported_by_facts === false && typeof parsed.answer === 'string' && parsed.answer.trim().length > 0) {
+          return rewriteSiteLinks(sanitizeReply(parsed.answer), pageUrl);
+        }
+      }
+    } catch {}
+
+    // Attempt a citation-repair pass with the same facts
+    const repaired = await enforceGroundedAnswer(message, facts, history, origin, pageUrl);
+    if (repaired) return repaired;
+
+    // Heuristic auto-grounding: accept answer if each sentence is supported by provided facts
+    const auto = await autoGroundedAnswer(raw, facts, pageUrl);
+    if (auto) return auto;
+
+    // If the user is clearly asking for degree/education and we have an education fact in context, extract program via a constrained prompt
+    if (/\bdegree|program|course|major|study|studying|enrolled\b/i.test(message) && facts.length > 0) {
+      const eduPrompt = [
+        'From the provided facts, extract the exact degree/program and university if present. Return strictly JSON:',
+        '{"answer": string, "supported_by_facts": boolean, "citations": string[]}',
+        'Do not invent anything. If not present, set supported_by_facts=false and answer with a brief polite fallback.',
+        '',
+        'Facts:',
+        ...facts.map((f) => `- [${f.id}] ${f.text}`)
+      ].join('\n');
+      const eduRaw = await callGemini(eduPrompt);
+      try {
+        const ex = extractJsonFromText(eduRaw);
+        if (ex) {
+          const p = JSON.parse(ex) as { answer?: string; supported_by_facts?: boolean; citations?: string[] };
+          const contextIds = new Set(facts.map((f) => f.id));
+          const allOk = Array.isArray(p?.citations) && p.citations.length > 0 && p.citations.every((c) => contextIds.has(c));
+          if (p?.supported_by_facts && allOk && p.answer) return rewriteSiteLinks(sanitizeReply(p.answer), pageUrl);
+        }
+      } catch {}
+    }
+
+    if (turn === 0) {
+      const suggestions = await improveQueries(message, facts);
+      if (suggestions.length > 0) {
+        workingQuery = `${message} ${suggestions[0]}`;
+        continue;
+      }
+    }
+    break;
+  }
+  return `I’m not sure about that — you can email Sandeep at ${getContactEmail()} or use the contact form on the site.`;
+}
+
+async function routerAgent(message: string, history: ChatMessage[], pageUrl?: string): Promise<string> {
+  const src = classifyDomain(message);
+  return agentAnswerScoped(message, history, pageUrl, src);
+}
+
+async function enforceGroundedAnswer(message: string, facts: Fact[], history: ChatMessage[], origin: string, pageUrl?: string): Promise<string | null> {
+  if (facts.length === 0) return null;
+  const historyText = history.slice(-6).map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n');
+  const linkPolicy = origin
+    ? `\n\nLink policy: Use only these exact links when relevant — Projects: ${origin}/#projects , Resume: ${origin}/Resume.pdf .`
+    : `\n\nLink policy: Use only relative links when relevant — Projects: /#projects , Resume: /Resume.pdf .`;
+  const system = buildSystemPrompt();
+  const enforcement = `\n\nIMPORTANT: Use only these citation ids: ${facts.map((f) => `[${f.id}]`).join(', ')}. Do NOT invent new ids. If you cannot support the answer with ONLY these ids, set supported_by_facts=false.`;
+  const prompt = `${system}${linkPolicy}${formatContextFacts(facts)}${enforcement}\n\n${historyText ? historyText + '\n' : ''}User: ${message}\nAssistant:`;
+  const raw = await callGemini(prompt);
+  try {
+    const extracted = extractJsonFromText(raw);
+    if (!extracted) return null;
+    const parsed = JSON.parse(extracted) as { answer?: string; supported_by_facts?: boolean; citations?: string[] };
+    const contextIds = new Set(facts.map((f) => f.id));
+    const allCitationsValid = Array.isArray(parsed?.citations) && parsed.citations.length > 0 && parsed.citations.every((c) => contextIds.has(c));
+    if (parsed?.supported_by_facts && allCitationsValid && parsed.answer) {
+      return rewriteSiteLinks(sanitizeReply(parsed.answer), pageUrl);
+    }
+  } catch {}
+  return null;
+}
+
+function splitSentences(text: string): string[] {
+  return (text || '')
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+}
+
+function scoreSupport(sentence: string, facts: Fact[]): number {
+  const qTokens = tokenize(sentence);
+  let best = 0;
+  for (const f of facts) {
+    const s = similarityScore(qTokens, f.text, f.id);
+    if (s > best) best = s;
+  }
+  return best;
+}
+
+function groundAnswerAgainstFacts(answer: string, facts: Fact[]): { supported: boolean; citations: string[] } {
+  const sentences = splitSentences(answer);
+  const citations = new Set<string>();
+  let allSupported = true;
+  for (const s of sentences) {
+    const qTokens = tokenize(s);
+    if (qTokens.length < 3) continue; // ignore trivial sentences
+    let bestFact: Fact | null = null;
+    let bestScore = -Infinity;
+    for (const f of facts) {
+      const sc = similarityScore(qTokens, f.text, f.id);
+      if (sc > bestScore) { bestScore = sc; bestFact = f; }
+    }
+    if (bestFact && bestScore >= 3) {
+      citations.add(bestFact.id);
+    } else {
+      allSupported = false;
+      break;
+    }
+  }
+  return { supported: allSupported && citations.size > 0, citations: Array.from(citations).slice(0, 4) };
+}
+
+async function autoGroundedAnswer(rawModelText: string, facts: Fact[], pageUrl?: string): Promise<string | null> {
+  const extracted = extractJsonFromText(rawModelText);
+  const candidate = extracted ? (() => { try { const p = JSON.parse(extracted) as { answer?: string }; return p.answer || ''; } catch { return ''; } })() : rawModelText;
+  const answer = sanitizeReply(candidate || '');
+  if (!answer) return null;
+  const res = groundAnswerAgainstFacts(answer, facts);
+  if (res.supported) {
+    return rewriteSiteLinks(answer, pageUrl);
+  }
+  return null;
+}
 

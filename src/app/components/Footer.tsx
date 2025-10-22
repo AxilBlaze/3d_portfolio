@@ -2,9 +2,9 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="footer-purple py-16 relative overflow-hidden">
+    <footer className="footer-purple py-12 sm:py-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h3 className="text-5xl md:text-6xl font-extrabold tracking-widest">
+        <h3 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-widest">
           <span className="silver-shimmer">Thank you</span>
         </h3>
       </div>
