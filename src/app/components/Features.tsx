@@ -26,13 +26,14 @@ const Features = () => {
       { threshold: [0, 0.15, 0.25, 0.4, 0.6, 0.8, 1.0] }
     );
 
-    if (featuresRef.current) {
-      observer.observe(featuresRef.current);
+    const currentRef = featuresRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (featuresRef.current) {
-        observer.unobserve(featuresRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);

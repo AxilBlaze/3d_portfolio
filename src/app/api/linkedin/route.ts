@@ -6,13 +6,15 @@ import path from 'node:path';
 
 const DATA_PATH = path.join(process.cwd(), 'src', 'data', 'linkedin_profile.json');
 
-function readCached(): any | null {
+function readCached(): unknown | null {
   try {
     if (fs.existsSync(DATA_PATH)) {
       const raw = fs.readFileSync(DATA_PATH, 'utf8');
       return JSON.parse(raw);
     }
-  } catch {}
+  } catch {
+    // Ignore file read errors
+  }
   return null;
 }
 
@@ -20,7 +22,7 @@ export async function GET() {
   try {
     const cached = readCached();
     return NextResponse.json({ ok: true, cached: !!cached, profile: cached || null });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ ok: false, error: 'read_failed' }, { status: 200 });
   }
 }
@@ -35,7 +37,7 @@ export async function POST(req: Request) {
     const r = await fetch(`https://nubela.co/proxycurl/api/v2/linkedin?url=${encodeURIComponent(url)}`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${apiKey}` },
-    } as any);
+    });
 
     if (!r.ok) {
       const t = await r.text().catch(() => '');
@@ -47,7 +49,7 @@ export async function POST(req: Request) {
     fs.writeFileSync(DATA_PATH, JSON.stringify(profile, null, 2), 'utf8');
 
     return NextResponse.json({ ok: true, saved: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ ok: false, error: 'refresh_failed' }, { status: 200 });
   }
 }

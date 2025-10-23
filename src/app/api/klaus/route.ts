@@ -223,26 +223,6 @@ function getOriginFromPageUrl(pageUrl?: string): string | null {
   }
 }
 
-function buildPrompt(message: string, history: ChatMessage[], pageUrl?: string): string {
-  const system = buildSystemPrompt();
-  const facts = selectRelevantFacts(message);
-  const intent = detectIntent(message);
-  const historyText = history
-    .slice(-10)
-    .map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
-    .join('\n');
-  const context = facts.length > 0
-    ? `\n\nContext Facts (cite by [id]):\n${facts.map((f) => `- [${f.id}] ${f.text}`).join('\n')}`
-    : '';
-  const intentLine = intent.name === 'ml'
-    ? `\n\nIntent: MACHINE LEARNING. Only answer about machine learning, ML skills, or ML-labeled projects. Ignore unrelated AI-native engineering facts unless they explicitly mention ML.`
-    : '';
-  const origin = getOriginFromPageUrl(pageUrl) || process.env.SITE_BASE_URL || '';
-  const linkPolicy = origin
-    ? `\n\nLink policy: Use only these exact links when relevant — Projects: ${origin}/#projects , Resume: ${origin}/Resume.pdf . Do not use other domains.`
-    : `\n\nLink policy: Use only relative links when relevant — Projects: /#projects , Resume: /Resume.pdf .`;
-  return `${system}${intentLine}${linkPolicy}${context}\n\n${historyText ? historyText + '\n' : ''}User: ${message}\nAssistant:`;
-}
 
 async function callGemini(promptText: string): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -476,8 +456,12 @@ async function embedQuery(text: string): Promise<number[] | null> {
   const payload = { content: { parts: [{ text }] }, taskType: 'RETRIEVAL_QUERY' } as const;
   const resp = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
   if (!resp.ok) { console.error('[Klaus] embedQuery error', resp.status); return null; }
-  const j: any = await resp.json().catch(() => ({}));
-  const vals: number[] = j?.embedding?.values || j?.embedding?.value || j?.embeddings?.[0]?.values || j?.embeddings?.[0]?.value || [];
+  const j: unknown = await resp.json().catch(() => ({}));
+  const response = j as {
+    embedding?: { values?: number[]; value?: number[] };
+    embeddings?: Array<{ values?: number[]; value?: number[] }>;
+  };
+  const vals: number[] = response?.embedding?.values || response?.embedding?.value || response?.embeddings?.[0]?.values || response?.embeddings?.[0]?.value || [];
   return Array.isArray(vals) && vals.length > 0 ? vals.map(Number) : null;
 }
 
@@ -658,15 +642,6 @@ function splitSentences(text: string): string[] {
     .filter((s) => s.length > 0);
 }
 
-function scoreSupport(sentence: string, facts: Fact[]): number {
-  const qTokens = tokenize(sentence);
-  let best = 0;
-  for (const f of facts) {
-    const s = similarityScore(qTokens, f.text, f.id);
-    if (s > best) best = s;
-  }
-  return best;
-}
 
 function groundAnswerAgainstFacts(answer: string, facts: Fact[]): { supported: boolean; citations: string[] } {
   const sentences = splitSentences(answer);

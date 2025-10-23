@@ -168,7 +168,7 @@ const Hero = () => {
                 >
                   <h3 className="text-white text-lg font-bold mb-4 text-center">About Me</h3>
                   <p className="text-gray-300 text-sm leading-relaxed text-center">
-                    I'm a passionate Computer Science engineer skilled in full-stack development, machine learning, and AI integration. I've built impactful projects like adaptive learning systems, healthcare platforms, and legal AI tools.
+                    I&apos;m a passionate Computer Science engineer skilled in full-stack development, machine learning, and AI integration. I&apos;ve built impactful projects like adaptive learning systems, healthcare platforms, and legal AI tools.
                   </p>
                   <div className="mt-4 text-center">
                     <p className="text-blue-400 text-xs">Click to flip back</p>
@@ -473,11 +473,11 @@ const Hero = () => {
                   
                   <div className="space-y-4">
                     <p className="text-gray-300 text-base leading-relaxed">
-                      I'm a passionate Computer Science engineer skilled in full-stack development, machine learning, and AI integration.
+                      I&apos;m a passionate Computer Science engineer skilled in full-stack development, machine learning, and AI integration.
                     </p>
                     
                     <p className="text-gray-300 text-base leading-relaxed">
-                      I've built impactful projects like adaptive learning systems, healthcare platforms, and legal AI tools.
+                      I&apos;ve built impactful projects like adaptive learning systems, healthcare platforms, and legal AI tools.
                     </p>
                     
                     <p className="text-gray-300 text-base leading-relaxed">
