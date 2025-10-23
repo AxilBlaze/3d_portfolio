@@ -275,7 +275,7 @@ const Hero = () => {
                     {/* Tooltip */}
                     <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none z-20">
                       <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg shadow-2xl whitespace-nowrap">
-                        <div className="text-sm font-bold">Artificial Intelligence Engineer</div>
+                        <div className="text-sm font-bold">AI Native Engineer</div>
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-green-600 rotate-45"></div>
                       </div>
                     </div>
