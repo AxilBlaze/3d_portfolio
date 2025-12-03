@@ -12,9 +12,7 @@ const Features = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const rect = entry.boundingClientRect;
-        const viewportHeight = window.innerHeight;
-        const scrollProgress = 1 - (rect.top / viewportHeight);
+
 
         // Calculate background color based on scroll progress
         setBackground('black');
