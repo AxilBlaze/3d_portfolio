@@ -6,7 +6,7 @@ import EducationTimeline from './EducationTimeline';
 import CertificatesSection from './CertificatesSection';
 
 const Features = () => {
-  const [background, setBackground] = useState('transparent');
+  const [background, setBackground] = useState('black');
   const featuresRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,13 +15,9 @@ const Features = () => {
         const rect = entry.boundingClientRect;
         const viewportHeight = window.innerHeight;
         const scrollProgress = 1 - (rect.top / viewportHeight);
-        
+
         // Calculate background color based on scroll progress
-        if (scrollProgress > 0.1) { // Start transition after 90% scroll
-          setBackground('black');
-        } else {
-          setBackground('white');
-        }
+        setBackground('black');
       },
       { threshold: [0, 0.15, 0.25, 0.4, 0.6, 0.8, 1.0] }
     );
@@ -63,7 +59,7 @@ const Features = () => {
                 EXPERT
               </h4>
             </div>
-            
+
             {/* Decorative elements */}
             <div className="flex items-center justify-center gap-4 sm:gap-8 mt-4">
               <div className="flex items-center gap-2">
@@ -82,7 +78,7 @@ const Features = () => {
           {/* All Images in Responsive Grid */}
           <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-4 px-2 sm:px-4">
             <div className="flex flex-col items-center">
-              <Image src="/TensorFlow_logo.svg.png" alt="TensorFlow" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <Image src="/TensorFlow.svg.png" alt="TensorFlow" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
               <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">TensorFlow</span>
             </div>
             <div className="flex flex-col items-center">
@@ -149,6 +145,42 @@ const Features = () => {
             <div className="flex flex-col items-center">
               <Image src="/AWS.png" alt="AWS" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
               <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">AWS</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/chroma_db.png" alt="ChromaDB" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">ChromaDB</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/cloudinary.png" alt="Cloudinary" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Cloudinary</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/deep_face.png" alt="DeepFace" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">DeepFace</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/fast_api.jpg" alt="FastAPI" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">FastAPI</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/google_adk.jpg" alt="Google ADK" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Google ADK</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/langchain.png" alt="LangChain" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">LangChain</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/optuna.jpg" alt="Optuna" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Optuna</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/qdrant.png" alt="Qdrant" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Qdrant</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Image src="/Selenium.png" alt="Selenium" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
+              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Selenium</span>
             </div>
           </div>
         </div>

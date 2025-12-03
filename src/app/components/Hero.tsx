@@ -473,15 +473,15 @@ const Hero = () => {
                   
                   <div className="space-y-4">
                     <p className="text-gray-300 text-base leading-relaxed">
-                      I&apos;m a passionate Computer Science engineer skilled in full-stack development, machine learning, and AI integration.
+                      I&apos;m an AI/ML-native engineer and Python developer passionate about building intelligent systems that solve real-world problems.
                     </p>
                     
                     <p className="text-gray-300 text-base leading-relaxed">
-                      I&apos;ve built impactful projects like adaptive learning systems, healthcare platforms, and legal AI tools.
+                      I&apos;ve designed and implemented powerful algorithms, leveraged data, and created scalable AI and machine learning solutions.Whether optimizing processes, enhancing user experiences, or driving innovation, AI and ML are my tools for creating smarter, data-driven solutions that deliver real impact.
                     </p>
                     
                     <p className="text-gray-300 text-base leading-relaxed">
-                      My experience as a Frontend Web Developer & Database Manager for the Madhya Pradesh Police and national-level hackathon achievements reflect my drive to build intelligent, data-driven, and user-centric solutions that make a real-world impact.
+                    I’ve honed my skills through national-level hackathons and hands-on projects, turning challenges into innovative, high-impact solutions.                    
                     </p>
                   </div>
                   

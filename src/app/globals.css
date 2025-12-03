@@ -47,11 +47,11 @@ body {
 
 .bg-white-pattern {
   background-color: #f8f9fa;
-  background-image: 
+  background-image:
     radial-gradient(#e2e8f0 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+    linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
   background-size: 24px 24px, 100% 100%;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
 }
@@ -63,14 +63,12 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 30%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.1) 70%,
-    transparent 100%
-  );
+  background: linear-gradient(45deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 30%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.1) 70%,
+      transparent 100%);
   transform: rotate(45deg);
   animation: shine 8s infinite linear;
   pointer-events: none;
@@ -78,11 +76,11 @@ body {
 
 .bg-black-pattern {
   background-color: #1a1a1a;
-  background-image: 
+  background-image:
     radial-gradient(#2d3748 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+    linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
   background-size: 24px 24px, 100% 100%;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -94,14 +92,12 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 30%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.05) 70%,
-    transparent 100%
-  );
+  background: linear-gradient(45deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 30%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.05) 70%,
+      transparent 100%);
   transform: rotate(45deg);
   animation: shine 8s infinite linear;
   pointer-events: none;
@@ -111,18 +107,19 @@ body {
   0% {
     transform: translateX(-100%) rotate(45deg);
   }
+
   100% {
     transform: translateX(100%) rotate(45deg);
   }
 }
 
 .scroll-pattern {
-  background-color: #1a1a1a;
-  background-image: 
+  background-color: black;
+  background-image:
     radial-gradient(#2d3748 0.7px, transparent 0.7px),
-    linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+    linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
   background-size: 20px 20px, 100% 100%;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
   min-height: 100vh;
   width: 100%;
 }
