@@ -11,7 +11,7 @@ const Features = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      () => {
 
 
         // Calculate background color based on scroll progress
