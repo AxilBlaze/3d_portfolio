@@ -97,7 +97,7 @@ const initialProjects: Project[] = [
   {
     title: 'Breast Cancer Detection IOT',
     imageSrc: '/projects/project-6.png',
-    liveUrl: '#',
+    liveUrl: 'https://breast-cancer-awareness-lovat.vercel.app/',
     techIconSrcs: ['/reactjs.png', '/tailwind-css.png', '/fast_api.jpg', '/python.jpeg', '/scikit_learn.png', '/TensorFlow.svg.png',],
     info: 'This project functions as an edge computing system where the Raspberry Pi serves as the central processing unit. Patient data is transmitted from a web interface directly to the Pi. The Pi then runs an onboard Machine Learning algorithm to analyze the received data and generate a real-time breast cancer prediction.',
     techBullets: [
@@ -109,7 +109,8 @@ const initialProjects: Project[] = [
   {
     title: 'Autonomous QA Agent',
     imageSrc: '/projects/project-7.png',
-    liveUrl: '#',
+    liveUrl: 'https://axilblaze-ocean-ai-app-6zslcd.streamlit.app/',
+    videoUrl: 'https://www.linkedin.com/posts/sandeep-balabantaray-69b60221b_ai-qaautomation-python-activity-7401499182152351744-Wh9n?utm_source=share&utm_medium=member_desktop&rcm=ACoAADdwyVcBLPAqPXZQe_X3tsO877Zg-bEYFkg',
     techIconSrcs: ['/streamlit.jpg', '/langchain.png', '/selenium.png'],
     info: 'The Autonomous QA Agent is an intelligent testing assistant designed to streamline the software testing lifecycle. By combining a RAG pipeline with a Streamlit interface, the system builds a knowledge base from uploaded requirements (PDF/Markdown) and target HTML files. It allows users to generate comprehensive test plans and immediately convert them into runnable Python Selenium scripts, ensuring that all automation logic is strictly grounded in the provided business rules and technical specifications.',
     techBullets: [
@@ -122,7 +123,7 @@ const initialProjects: Project[] = [
   {
     title: 'Eigen Solver Pro',
     imageSrc: '/projects/project-8.png',
-    liveUrl: '#',
+    liveUrl: 'https://axilblaze-eigen-calculator-app-hhqw6s.streamlit.app/',
     techIconSrcs: ['/streamlit.jpg', '/python.jpeg', '/fast_api.jpg'],
     info: 'Developed a Python-based computational tool to calculate eigenvalues and eigenvectors, demonstrating the mathematical core of Machine Learning algorithms. The project illustrates how these components identify directions of maximum variance in high-dimensional data, simulating the mechanics of Principal Component Analysis (PCA) for dimensionality reduction and feature extraction.',
     techBullets: [
