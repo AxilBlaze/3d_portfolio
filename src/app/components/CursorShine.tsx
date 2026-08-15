@@ -4,18 +4,31 @@ import React, { useEffect, useState } from 'react';
 
 const CursorShine = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    const pointerMq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setEnabled(pointerMq.matches && !motionMq.matches);
+    update();
+    pointerMq.addEventListener('change', update);
+    motionMq.addEventListener('change', update);
+    return () => {
+      pointerMq.removeEventListener('change', update);
+      motionMq.removeEventListener('change', update);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener('mousemove', updatePosition);
+    return () => window.removeEventListener('mousemove', updatePosition);
+  }, [enabled]);
 
-    return () => {
-      window.removeEventListener('mousemove', updatePosition);
-    };
-  }, []);
+  if (!enabled) return null;
 
   return (
     <div
@@ -27,4 +40,4 @@ const CursorShine = () => {
   );
 };
 
-export default CursorShine; 
+export default CursorShine;

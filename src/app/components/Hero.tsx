@@ -23,6 +23,20 @@ const socials = [
   },
 ];
 
+const heroIntro =
+  "I'm an AI/ML engineer and full-stack builder. I design algorithms, ship Python backends, and turn data into products people can use — from adaptive learning and healthcare tools to legal AI. AI isn't a tagline for me; it's how I build.";
+
+const heroProof = (
+  <>
+    I&apos;ve built my journey around challenging myself in AI and problem-solving. I reached the{' '}
+    <strong className="text-white">Top 10 globally in Meta Hacker Cup&apos;s AI Track</strong> and was
+    selected among the{' '}
+    <strong className="text-white">Top 15 projects in the Google × Kaggle Agents Intensive Capstone</strong>.
+    I&apos;ve also worked across <strong className="text-white">four organizations</strong>, learning to
+    adapt fast, compete hard, and deliver.
+  </>
+);
+
 const Hero = () => {
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -54,11 +68,11 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-start bg-black overflow-hidden">
+    <section id="about" className="relative min-h-screen flex items-center justify-start bg-black overflow-hidden scroll-mt-20">
       <ParticleWireBackground />
       {/* Animated glowing background for the whole hero section */}
       <div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="hero-glow pointer-events-none absolute inset-0 z-0"
         style={{
           background: 'radial-gradient(circle at 60% 40%, rgba(99,102,241,0.35) 0%, rgba(59,130,246,0.18) 60%, transparent 100%)',
           filter: 'blur(120px)',
@@ -72,10 +86,12 @@ const Hero = () => {
               Sandeep Balabantaray
             </h1>
             <p className="text-sm xs:text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed font-sans">
-              I&#39;m an AI/ML engineer on a mission to drive change with intelligent systems. I craft powerful algorithms, harness data, and build solutions that make a real impact—whether it&#39;s improving lives, optimizing industries, or pushing the boundaries of innovation. AI isn&#39;t just my work; it&#39;s my tool for shaping a smarter, more connected world.
+              {heroIntro}
             </p>
-            <form onSubmit={handleSend} className="mb-6">
+            <form id="contact" onSubmit={handleSend} className="mb-6 scroll-mt-20">
+              <label htmlFor="contact-message" className="sr-only">Message</label>
               <textarea
+                id="contact-message"
                 value={message}
                 onChange={e => setMessage(e.target.value)}
                 placeholder="Drop me a message..."
@@ -99,9 +115,9 @@ const Hero = () => {
                   Download Resume
                 </a>
               </div>
-            {status && (
-              <p className="text-xs sm:text-sm mt-2 text-gray-300">{status}</p>
-            )}
+            <p role="status" aria-live="polite" className="text-xs sm:text-sm mt-2 text-gray-300 min-h-5">
+              {status}
+            </p>
             </form>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-8 sm:mb-12 relative z-30">
               {socials.map((social) => (
@@ -123,11 +139,21 @@ const Hero = () => {
             <div className="relative w-64 h-80 mx-auto" style={{ perspective: '1000px' }}>
               <div 
                 className="relative w-full h-full transition-transform duration-700 ease-in-out cursor-pointer"
+                role="button"
+                tabIndex={0}
+                aria-pressed={isFlipped}
+                aria-label={isFlipped ? 'Flip photo card back' : 'Flip photo card to about'}
                 style={{ 
                   transformStyle: 'preserve-3d',
                   transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
                 }}
                 onClick={() => setIsFlipped(!isFlipped)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setIsFlipped((v) => !v);
+                  }
+                }}
               >
                 {/* Front - Photo */}
                 <div 
@@ -135,7 +161,7 @@ const Hero = () => {
                   style={{ backfaceVisibility: 'hidden' }}
                 >
                   <Image
-                    src="/my_photo.jpg"
+                    src="/my_photo.png"
                     alt="Sandeep Balabantaray"
                     fill
                     className="object-cover"
@@ -166,9 +192,9 @@ const Hero = () => {
                     bottom: 0
                   }}
                 >
-                  <h3 className="text-white text-lg font-bold mb-4 text-center">About Me</h3>
+                  <h3 className="text-white text-lg font-bold mb-4 text-center">Highlights</h3>
                   <p className="text-gray-300 text-sm leading-relaxed text-center">
-                    I&apos;m a passionate Computer Science engineer skilled in full-stack development, machine learning, and AI integration. I&apos;ve built impactful projects like adaptive learning systems, healthcare platforms, and legal AI tools.
+                    {heroProof}
                   </p>
                   <div className="mt-4 text-center">
                     <p className="text-blue-400 text-xs">Click to flip back</p>
@@ -179,10 +205,8 @@ const Hero = () => {
           </div>
           
           {/* Desktop 3D Photo Card with Enhanced Right Side */}
-          <div className="hidden lg:block w-5/6 relative translate-x-20 -translate-y-8 flex flex-col items-center">
-
-
-
+          <div className="hidden lg:flex w-full max-w-2xl relative items-start justify-center gap-6">
+            <div className="relative flex flex-col items-center">
             {/* Floating Particles */}
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-20 right-10 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
@@ -191,184 +215,6 @@ const Hero = () => {
               <div className="absolute bottom-32 right-8 w-1 h-1 bg-pink-400 rounded-full animate-ping"></div>
               <div className="absolute top-40 right-32 w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
             </div>
-
-            {/* Skill Icons - Right side of photo */}
-            <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 z-10">
-              <div className="flex flex-col gap-8">
-                {/* ML Icon */}
-                <div className="relative w-32 h-32 group cursor-pointer">
-                  <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="rgba(59, 130, 246, 0.2)"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="url(#gradient1)"
-                      strokeWidth="6"
-                      fill="none"
-                      strokeDasharray="251.2"
-                      strokeDashoffset="62.8"
-                      className="animate-spin group-hover:animate-pulse"
-                      style={{ animationDuration: '3s' }}
-                    />
-                    <defs>
-                      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#3b82f6" />
-                        <stop offset="100%" stopColor="#8b5cf6" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white text-lg font-bold group-hover:scale-110 transition-transform duration-300">ML</span>
-                  </div>
-                  
-                  {/* Tooltip */}
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none z-20">
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg shadow-2xl whitespace-nowrap">
-                      <div className="text-sm font-bold">Machine Learning Engineer</div>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-600 rotate-[225deg]"></div>
-                    </div>
-                  </div>
-                </div>
-
-                  {/* AI Icon */}
-                  <div className="relative w-32 h-32 group cursor-pointer">
-                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="rgba(34, 197, 94, 0.2)"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="url(#gradient2)"
-                      strokeWidth="6"
-                      fill="none"
-                      strokeDasharray="251.2"
-                      strokeDashoffset="50.24"
-                      className="animate-spin group-hover:animate-pulse"
-                      style={{ animationDuration: '4s' }}
-                    />
-                    <defs>
-                      <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#22c55e" />
-                        <stop offset="100%" stopColor="#10b981" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white text-lg font-bold group-hover:scale-110 transition-transform duration-300">AI</span>
-                    </div>
-                    
-                    {/* Tooltip */}
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none z-20">
-                      <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg shadow-2xl whitespace-nowrap">
-                        <div className="text-sm font-bold">AI Native Engineer</div>
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-green-600 rotate-45"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* DS Icon */}
-                  <div className="relative w-32 h-32 group cursor-pointer">
-                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="rgba(168, 85, 247, 0.2)"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="url(#gradient3)"
-                      strokeWidth="6"
-                      fill="none"
-                      strokeDasharray="251.2"
-                      strokeDashoffset="75.36"
-                      className="animate-spin group-hover:animate-pulse"
-                      style={{ animationDuration: '5s' }}
-                    />
-                    <defs>
-                      <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#a855f7" />
-                        <stop offset="100%" stopColor="#8b5cf6" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white text-lg font-bold group-hover:scale-110 transition-transform duration-300">DS</span>
-                    </div>
-                    
-                    {/* Tooltip */}
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none z-20">
-                      <div className="bg-gradient-to-r from-purple-600 to-violet-600 text-white px-4 py-2 rounded-lg shadow-2xl whitespace-nowrap">
-                        <div className="text-sm font-bold">Data Scientist</div>
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-purple-600 rotate-45"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Python Developer Icon */}
-                  <div className="relative w-32 h-32 group cursor-pointer">
-                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="rgba(245, 158, 11, 0.2)"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="url(#gradient4)"
-                      strokeWidth="6"
-                      fill="none"
-                      strokeDasharray="251.2"
-                      strokeDashoffset="100.48"
-                      className="animate-spin group-hover:animate-pulse"
-                      style={{ animationDuration: '6s' }}
-                    />
-                    <defs>
-                      <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#d97706" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white text-lg font-bold group-hover:scale-110 transition-transform duration-300">PY</span>
-                    </div>
-                    
-                    {/* Tooltip */}
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none z-20">
-                      <div className="bg-gradient-to-r from-orange-600 to-amber-600 text-white px-4 py-2 rounded-lg shadow-2xl whitespace-nowrap">
-                        <div className="text-sm font-bold">Python Developer</div>
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-orange-600 rotate-45"></div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-
 
             {/* Connection Lines */}
             <div className="absolute inset-0 pointer-events-none">
@@ -403,35 +249,29 @@ const Hero = () => {
             <div className="relative w-96 h-[500px] mb-2" style={{ perspective: '1200px' }}>
               <div 
                 className="relative w-full h-full transition-transform duration-700 ease-in-out cursor-pointer group"
+                role="button"
+                tabIndex={0}
+                aria-pressed={isFlipped}
+                aria-label={isFlipped ? 'Flip photo card back' : 'Flip photo card to about'}
                 style={{ 
                   transformStyle: 'preserve-3d',
                   transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
                 }}
                 onClick={() => setIsFlipped(!isFlipped)}
-                onMouseEnter={() => {
-                  if (!isFlipped) {
-                    const element = document.querySelector('.desktop-photo-card') as HTMLElement;
-                    if (element) {
-                      element.style.transform = 'scale(1.05)';
-                    }
-                  }
-                }}
-                onMouseLeave={() => {
-                  if (!isFlipped) {
-                    const element = document.querySelector('.desktop-photo-card') as HTMLElement;
-                    if (element) {
-                      element.style.transform = 'scale(1)';
-                    }
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setIsFlipped((v) => !v);
                   }
                 }}
               >
                 {/* Front - Photo */}
                 <div 
-                  className="desktop-photo-card absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-2xl"
+                  className="desktop-photo-card absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-[1.03]"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
             <Image
-                    src="/my_photo.jpg"
+                    src="/my_photo.png"
                     alt="Sandeep Balabantaray"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -467,23 +307,13 @@ const Hero = () => {
                   }}
                 >
                   <div className="text-center mb-6">
-                    <h3 className="text-white text-2xl font-bold mb-2">About Me</h3>
+                    <h3 className="text-white text-2xl font-bold mb-2">Highlights</h3>
                     <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full" />
                   </div>
                   
-                  <div className="space-y-4">
-                    <p className="text-gray-300 text-base leading-relaxed">
-                      I&apos;m an AI/ML-native engineer and Python developer passionate about building intelligent systems that solve real-world problems.
-                    </p>
-                    
-                    <p className="text-gray-300 text-base leading-relaxed">
-                      I&apos;ve designed and implemented powerful algorithms, leveraged data, and created scalable AI and machine learning solutions.Whether optimizing processes, enhancing user experiences, or driving innovation, AI and ML are my tools for creating smarter, data-driven solutions that deliver real impact.
-                    </p>
-                    
-                    <p className="text-gray-300 text-base leading-relaxed">
-                    I’ve honed my skills through national-level hackathons and hands-on projects, turning challenges into innovative, high-impact solutions.                    
-                    </p>
-                  </div>
+                  <p className="text-gray-300 text-base leading-relaxed">
+                    {heroProof}
+                  </p>
                   
                   <div className="mt-6 text-center">
                     <div className="inline-flex items-center gap-2 text-blue-400 text-sm font-medium">
@@ -513,6 +343,156 @@ const Hero = () => {
               <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm rounded-xl border border-white/10 p-4 hover:scale-105 transition-transform duration-300">
                 <div className="text-white text-2xl font-bold text-center">30+</div>
                 <div className="text-gray-300 text-sm text-center">Technologies</div>
+              </div>
+            </div>
+            </div>
+
+            {/* Skill Icons - Right side of photo */}
+            <div className="relative z-10 shrink-0 -translate-y-4">
+              <div className="flex flex-col gap-4">
+                {/* ML Icon */}
+                <div className="relative w-32 h-32 group cursor-pointer">
+                  <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="rgba(59, 130, 246, 0.2)"
+                      strokeWidth="6"
+                      fill="none"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="url(#gradient1)"
+                      strokeWidth="6"
+                      fill="none"
+                      strokeDasharray="251.2"
+                      strokeDashoffset="62.8"
+                      className="animate-spin group-hover:animate-pulse"
+                      style={{ animationDuration: '3s' }}
+                    />
+                    <defs>
+                      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-white text-lg font-bold">ML</span>
+                  </div>
+                  <p className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full text-[11px] text-gray-300 whitespace-nowrap">ML Engineer</p>
+                </div>
+
+                  {/* AI Icon */}
+                  <div className="relative w-32 h-32 group cursor-pointer">
+                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="rgba(34, 197, 94, 0.2)"
+                      strokeWidth="6"
+                      fill="none"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="url(#gradient2)"
+                      strokeWidth="6"
+                      fill="none"
+                      strokeDasharray="251.2"
+                      strokeDashoffset="50.24"
+                      className="animate-spin group-hover:animate-pulse"
+                      style={{ animationDuration: '4s' }}
+                    />
+                    <defs>
+                      <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#22c55e" />
+                        <stop offset="100%" stopColor="#10b981" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-lg font-bold">AI</span>
+                    </div>
+                    <p className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full text-[11px] text-gray-300 whitespace-nowrap">AI Engineer</p>
+                  </div>
+
+                  {/* DS Icon */}
+                  <div className="relative w-32 h-32 group cursor-pointer">
+                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="rgba(168, 85, 247, 0.2)"
+                      strokeWidth="6"
+                      fill="none"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="url(#gradient3)"
+                      strokeWidth="6"
+                      fill="none"
+                      strokeDasharray="251.2"
+                      strokeDashoffset="75.36"
+                      className="animate-spin group-hover:animate-pulse"
+                      style={{ animationDuration: '5s' }}
+                    />
+                    <defs>
+                      <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#a855f7" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-lg font-bold">DS</span>
+                    </div>
+                    <p className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full text-[11px] text-gray-300 whitespace-nowrap">Data Scientist</p>
+                  </div>
+
+                  {/* Python Developer Icon */}
+                  <div className="relative w-32 h-32 group cursor-pointer">
+                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="rgba(245, 158, 11, 0.2)"
+                      strokeWidth="6"
+                      fill="none"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="url(#gradient4)"
+                      strokeWidth="6"
+                      fill="none"
+                      strokeDasharray="251.2"
+                      strokeDashoffset="100.48"
+                      className="animate-spin group-hover:animate-pulse"
+                      style={{ animationDuration: '6s' }}
+                    />
+                    <defs>
+                      <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#d97706" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-lg font-bold">PY</span>
+                    </div>
+                    <p className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full text-[11px] text-gray-300 whitespace-nowrap">Python Developer</p>
+                  </div>
               </div>
             </div>
           </div>
@@ -546,9 +526,13 @@ const Hero = () => {
             opacity: 0.7;
           }
         }
-
+        @media (prefers-reduced-motion: reduce) {
+          .hero-glow {
+            animation: none !important;
+          }
+        }
       `}</style>
-    </div>
+    </section>
   );
 };
 

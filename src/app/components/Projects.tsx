@@ -134,19 +134,23 @@ const initialProjects: Project[] = [
   },
 ];
 
+function techAlt(src: string): string {
+  return src.replace(/^.*\//, '').replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ');
+}
+
 const Projects: React.FC = () => {
   const projects = useMemo(() => initialProjects, []);
   const [flipped, setFlipped] = useState<Record<number, boolean>>({});
 
   return (
-    <section className="relative py-12 sm:py-16 lg:py-24 bg-black">
+    <section id="projects" className="relative py-16 sm:py-20 lg:py-24 bg-black scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl tracking-widest font-extrabold text-white text-center mb-8 sm:mb-12 lg:mb-16">PROJECTS</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
           {projects.map((project, i) => {
             const isFlipped = !!flipped[i];
             return (
-              <article key={project.title} className="relative">
+              <article key={project.title} className="relative hover-lift">
                 <div className="group" style={{ perspective: 1000 }}>
                   <div
                     className="relative h-64 sm:h-72 w-full"
@@ -161,11 +165,22 @@ const Projects: React.FC = () => {
                       className="absolute inset-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5"
                       style={{ backfaceVisibility: 'hidden', pointerEvents: isFlipped ? 'none' : 'auto' }}
                     >
-                      <button aria-label="Info" className="absolute top-3 right-3 z-30 text-white/90 hover:text-white" onClick={() => setFlipped(prev => ({ ...prev, [i]: true }))}>
+                      <button
+                        type="button"
+                        aria-label={`About ${project.title}`}
+                        className="absolute top-3 right-3 z-30 inline-flex min-h-11 min-w-11 items-center justify-center text-white/90 hover:text-white"
+                        onClick={() => setFlipped(prev => ({ ...prev, [i]: true }))}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setFlipped(prev => ({ ...prev, [i]: true }));
+                          }
+                        }}
+                      >
                         <AiOutlineInfoCircle size={22} />
                       </button>
-                      <div className="absolute inset-0 hidden lg:block lg:bg-black/70 lg:group-hover:bg-black/0 transition-colors duration-300 z-10" />
-                      <Image src={project.imageSrc} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-100 lg:opacity-40 lg:group-hover:opacity-100 transition-opacity duration-300 filter brightness-110 saturate-125 lg:brightness-100 lg:saturate-100" />
+                      <Image src={project.imageSrc} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover brightness-110 saturate-125" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                       <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 z-20">
                         <div>
                           <span className="inline-block bg-white/70 backdrop-blur px-2 sm:px-3 py-1 rounded-md">
@@ -173,9 +188,9 @@ const Projects: React.FC = () => {
                           </span>
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-0">
-                          <div className="flex flex-wrap gap-2 sm:gap-3 max-w-full sm:max-w-[75%] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                          <div className="flex flex-wrap gap-2 sm:gap-3 max-w-full sm:max-w-[75%]">
                             {project.techIconSrcs.map((src) => (
-                              <Image key={src} src={src} alt="tech" width={32} height={32} className="w-8 h-8 sm:w-10 sm:h-10 object-contain rounded-sm bg-black p-1" />
+                              <Image key={src} src={src} alt={techAlt(src)} width={32} height={32} className="w-8 h-8 sm:w-10 sm:h-10 object-contain rounded-sm bg-black p-1" />
                             ))}
                             {project.techBadges?.map((label) => (
                               <span key={label} className="text-xs font-medium text-white bg-black px-2 py-1 rounded-md">{label}</span>
@@ -183,13 +198,13 @@ const Projects: React.FC = () => {
                           </div>
                           <div className="flex flex-wrap gap-2 sm:gap-3">
                             {project.liveUrl && (
-                              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-black/80 transition-colors duration-200 text-sm">Link</a>
+                              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-3 sm:px-4 py-2 min-h-11 inline-flex items-center rounded-lg hover:bg-black/80 transition-colors duration-200 text-sm">Link</a>
                             )}
                             {project.videoUrl && (
-                              <a href={project.videoUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-black/80 transition-colors duration-200 text-sm">Video</a>
+                              <a href={project.videoUrl} target="_blank" rel="noopener noreferrer" className="bg-black text-white px-3 sm:px-4 py-2 min-h-11 inline-flex items-center rounded-lg hover:bg-black/80 transition-colors duration-200 text-sm">Video</a>
                             )}
                             {project.repoUrl && (
-                              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="bg-white/10 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-white/20 transition-colors duration-200 text-sm">Github</a>
+                              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="bg-white/10 text-white px-3 sm:px-4 py-2 min-h-11 inline-flex items-center rounded-lg hover:bg-white/20 transition-colors duration-200 text-sm">Github</a>
                             )}
                           </div>
                         </div>
@@ -200,7 +215,18 @@ const Projects: React.FC = () => {
                       className="absolute inset-0 rounded-2xl border border-white/10 bg-black text-white p-4 sm:p-5 overflow-y-auto"
                       style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', pointerEvents: isFlipped ? 'auto' : 'none' }}
                     >
-                      <button aria-label="Close" className="absolute top-3 right-3 z-30 text-white/90 hover:text-white" onClick={() => setFlipped(prev => ({ ...prev, [i]: false }))}>
+                      <button
+                        type="button"
+                        aria-label="Close project details"
+                        className="absolute top-3 right-3 z-30 inline-flex min-h-11 min-w-11 items-center justify-center text-white/90 hover:text-white"
+                        onClick={() => setFlipped(prev => ({ ...prev, [i]: false }))}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setFlipped(prev => ({ ...prev, [i]: false }));
+                          }
+                        }}
+                      >
                         <AiOutlineClose size={20} />
                       </button>
                       <h4 className="text-lg sm:text-xl font-bold mb-2">About</h4>

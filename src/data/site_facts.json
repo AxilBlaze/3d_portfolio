@@ -1,11 +1,11 @@
 [
     {
     "id": "owner",
-    "text": "This portfolio belongs to Sandeep Balabantaray, an AI Native Engineer, Machine Learning Engineer, and Python Developer passionate about building intelligent, data-driven systems and next-gen AI applications."
+    "text": "This portfolio belongs to Sandeep Balabantaray, an AI/ML engineer and full-stack builder. He designs algorithms, ships Python backends, and turns data into products — adaptive learning, healthcare, and legal AI. Tagline: BUILDING AI. SCALING INTELLIGENCE."
     },
     {
     "id": "contact",
-    "text": "You can contact Sandeep via email at [sandeepcool2036@gmail.com](mailto:sandeepcool2036@gmail.com) or through the contact form on the site."
+    "text": "You can contact Sandeep via email at sandeepcool2036@gmail.com or sandeepbalabantaray3@gmail.com (resume), phone +91 9937084437, or through the contact form on the site. Resume PDF: /Resume.pdf"
     },
     {
     "id": "profiles:linkedin",
@@ -16,8 +16,12 @@
     "text": "GitHub: github.com/AxilBlaze"
     },
     {
+    "id": "profiles:codolio",
+    "text": "Coding profile (Codolio): https://codolio.com/profile/Axil_Blaze"
+    },
+    {
     "id": "education:vit-bhopal",
-    "text": "VIT Bhopal University — Bachelor of Technology in Computer Science and Engineering, CGPA 8.58, 2022–2026."
+    "text": "VIT Bhopal University — Bachelor of Technology in Computer Science and Engineering, final CGPA 8.74, 2022–2026. Passed and awarded the provisional degree."
     },
   {
   "id": "education:degree",
@@ -25,27 +29,55 @@
   },
   {
   "id": "education:class-10",
-  "text": "Class 10th Board: CBSE; School: Kendriya Vidyalaya No. 5, Kalinga Nagar, Bhubaneswar, Odisha."
+  "text": "Class 10: 91.4%, CBSE, Kendriya Vidyalaya No. 5, Kalinga Nagar, Bhubaneswar, Odisha."
   },
   {
   "id": "education:class-12",
-  "text": "Class 12th Board: CBSE; School: Kendriya Vidyalaya No. 5, Kalinga Nagar, Bhubaneswar, Odisha."
+  "text": "Class 12: 94.6%, CBSE, Kendriya Vidyalaya No. 5, Kalinga Nagar, Bhubaneswar, Odisha."
   },
     {
+    "id": "experience:airdawgs",
+    "text": "AirDawgs Labs — AI Engineer, LLM Evaluation & Benchmarking (Jul 2026–Present, Remote Freelance). Built 10+ terminal coding benchmarks in Go and Docker to evaluate frontier models including GPT-5.5 and Claude Opus 4.8. Built differential evaluation pipelines with oracles and dynamic tests."
+    },
+    {
+    "id": "experience:deccan",
+    "text": "Deccan AI — Ops Associate & AI Trainer (Feb 2026–May 2026, Remote). Annotated and ranked Gemini responses across Web, Android, and iOS for RLHF/SFT. Evaluated outputs for factuality, safety, relevance, and instruction-following."
+    },
+    {
     "id": "experience:algouniversity",
-    "text": "AlgoUniversity (YC S21) — SWE Co-Op Intern (May 2025–Present, Remote). Architected CodeBlaze (500+ active users) with Docker-based compilers, React + Tailwind UI, and an admin console. Scaled Django/DRF backend handling 10K+ submissions/day. Deployed on AWS EC2 + Nginx with Docker workers and Vercel frontend (99.9% uptime). Built 'Ember', an AI coding assistant using Google Gemini for code analysis, evaluation, and intelligent hints."
+    "text": "AlgoUniversity (YC S21) — SWE Co-Op Intern (May 2025–July 2025, Remote). Architected CodeBlaze (500+ users) with Docker-based compilers, React + Tailwind dashboards, and an LLM-assisted evaluation pipeline. Scaled Django/DRF backend handling 10K+ submissions/day. Deployed on AWS and built an AI coding assistant."
     },
     {
     "id": "experience:mp-police",
-    "text": "Madhya Pradesh Police — Frontend Web Developer & Database Manager Intern (Dec 2024–Mar 2025, Bhopal). Digitized 50+ manual forms using React and Flask, reducing paperwork by 70% and processing time by 50%. Automated database workflows and Excel data extraction, cutting retrieval time by 60%."
+    "text": "Madhya Pradesh Police — Frontend Web Developer & Database Manager Intern (Dec 2024–Feb 2025, Bhopal). Digitized 50+ police forms with React, reducing paperwork by 70%. Automated MongoDB and Excel workflows, improving retrieval efficiency by 60%."
     },
     {
     "id": "project:codeblaze",
-    "text": "CodeBlaze: Next-gen online judge with React/Tailwind frontend and Django backend, Docker-based judging, and WebSockets. Hosted via Vercel (frontend) and AWS EC2 (backend)."
+    "text": "CodeBlaze: Next-gen online judge with React/Tailwind/Monaco frontend, Django + DRF + WebSockets backend, Docker-sandboxed judging. 500+ users. Live: https://the-oj-project.vercel.app/"
     },
     {
     "id": "project:coursecraft",
-    "text": "CourseCraft: AI-powered learning platform using React (Vite) + Tailwind with Flask backend and MongoDB. Integrates Hugging Face models for tutoring, adaptive recommendations, and intelligent feedback."
+    "text": "CourseCraft: AI-powered learning platform using React (Vite) + Tailwind with Flask backend and MongoDB. Integrates Hugging Face models (Falcon-7B, BART-MNLI) for tutoring, adaptive recommendations, and intelligent feedback. Live: https://course-craft-front.vercel.app/"
+    },
+    {
+    "id": "project:nexus-gallery",
+    "text": "Nexus AI Smart Gallery (Nov–Dec 2025): Multimodal visual search using RetinaFace + FaceNet512 for biometric encoding and CLIP/Gemini semantic retrieval, 99% face detection accuracy. Qdrant 768-d embeddings with Gemini re-ranking. GitHub: https://github.com/AxilBlaze/Nexus_Galllery"
+    },
+    {
+    "id": "project:traffic-sentinel",
+    "text": "Traffic Sentinel (Dec 2025–Jan 2026): Real-time traffic enforcement processing 10 FPS live video, detecting 10+ violation types, and generating evidence-backed fines in under 500 ms. ML orchestration for 1,000+ simulated violations, Firestore logging, 2-hour dedup windows, automated email at 99% success."
+    },
+    {
+    "id": "project:autonomous-qa",
+    "text": "Autonomous QA Agent: RAG + Streamlit assistant that builds a knowledge base from requirements (PDF/Markdown) and HTML, then generates test plans and runnable Selenium scripts. Live: https://axilblaze-ocean-ai-app-6zslcd.streamlit.app/"
+    },
+    {
+    "id": "project:breast-cancer-iot",
+    "text": "Breast Cancer Detection IoT: Raspberry Pi edge system. Web UI sends patient data to the Pi; onboard ML (scikit-learn, TensorFlow) predicts in real time. Live: https://breast-cancer-awareness-lovat.vercel.app/"
+    },
+    {
+    "id": "project:eigen-solver",
+    "text": "Eigen Solver Pro: Python tool for eigenvalues/eigenvectors illustrating PCA mechanics. Streamlit + FastAPI + NumPy. Live: https://axilblaze-eigen-calculator-app-hhqw6s.streamlit.app/"
     },
     {
     "id": "project:walmart-bot",
@@ -97,11 +129,19 @@
     },
     {
     "id": "skills:technical",
-    "text": "Technical Skills — Languages: Python, C++, JavaScript, TypeScript, HTML, CSS, PHP, SQL. Frameworks: Flask, Django, React, Next.js, Tailwind, FastAPI. Databases: MySQL, PostgreSQL, MongoDB, SQLite. Machine Learning: Scikit-Learn, TensorFlow, Keras, PyTorch, Hugging Face, LangChain, LangFlow. Specializations: NLP, Deep Learning, Computer Vision, Generative AI, Agentic AI Systems, Model Optimization. Tools: Docker, AWS (EC2, S3, Lambda, RDS, CloudWatch, Elastic Beanstalk, IAM, SSL), Git, GitHub, Vercel."
+    "text": "Technical Skills — Languages: Python, Go, C++, JavaScript, TypeScript, HTML, CSS, PHP, SQL. Frameworks: Flask, Django, Django REST Framework, React, Next.js, Tailwind, FastAPI, Streamlit. Databases: MySQL, PostgreSQL, MongoDB, SQLite, Qdrant, ChromaDB. Machine Learning: Scikit-Learn, TensorFlow, Keras, PyTorch, Hugging Face, LangChain, LangGraph, LangSmith, CrewAI, MCP, OpenRouter, Google Gemini, Google ADK. Specializations: NLP, Deep Learning, Computer Vision, Generative AI, Agentic AI, RAG pipelines, LLM evaluation & benchmarking. Tools: Docker, AWS, Git, GitHub, Vercel, Selenium."
     },
     {
     "id": "achievements",
-    "text": "Achievements: 2nd place in AlgoUniversity programming camp (advanced graph theory). Completed Machine Learning Specialization (Stanford & DeepLearning.AI). LeetCode Knight badge with 1819 rating, ranked top 5.3% globally."
+    "text": "Achievements: Meta Hacker Cup 2025 AI Track finalist (Top 10 globally). Google × Kaggle Agents Intensive Capstone Top 15 (Nov–Dec 2025). 2nd place out of 1000+ students in AlgoUniversity advanced graph theory camp. Coursera Machine Learning Specialization (Stanford & DeepLearning.AI). LeetCode Knight, rating 1889, top 5% globally. Codeforces Specialist, rating 1201."
+    },
+    {
+    "id": "win:kaggle-agents",
+    "text": "Google × Kaggle Agents Intensive Capstone (Nov–Dec 2025): Top 15 teams. Built the face-recognition module and Gemini-powered image extraction with re-ranking for semantic retrieval at 99% accuracy. Writeup: https://www.kaggle.com/competitions/agents-intensive-capstone-project/writeups/new-writeup-1763193371592"
+    },
+    {
+    "id": "win:meta-hacker-cup",
+    "text": "Meta Hacker Cup 2025 AI Track: Top 10 globally, finalist. Scoreboard: https://www.facebook.com/codingcompetitions/hacker-cup/2025/final-round/scoreboard?track=AI_CLOSED_TRACK"
     },
     {
     "id": "hackathon:amdocs-2024",

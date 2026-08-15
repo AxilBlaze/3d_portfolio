@@ -132,7 +132,6 @@ async function embedOne(text, apiKey, model) {
 async function main() {
   loadEnvFiles();
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) { console.error('GEMINI_API_KEY missing'); process.exit(1); }
   const model = process.env.GEMINI_EMBED_MODEL || 'text-embedding-004';
 
   const root = process.cwd();
@@ -155,12 +154,48 @@ async function main() {
   }
   if (docs.length === 0) { console.error('No docs found'); process.exit(1); }
 
-  console.log(`Embedding ${docs.length} docs...`);
+  const prevPath = path.join(root, 'src', 'data', 'kb_embeddings.json');
+  const prevByText = new Map();
+  const prevById = new Map();
+  if (fs.existsSync(prevPath)) {
+    try {
+      const prev = JSON.parse(fs.readFileSync(prevPath, 'utf8'));
+      for (const row of prev) {
+        if (!Array.isArray(row?.embedding)) continue;
+        if (row.text) prevByText.set(row.text, row.embedding);
+        if (row.id) prevById.set(row.id, row.embedding);
+      }
+    } catch {}
+  }
+
   const out = [];
+  const skipped = [];
+  let reused = 0;
+  let embedded = 0;
+  let textPatched = 0;
   for (const d of docs) {
-    const emb = await embedOne(d.text, apiKey, model);
+    let emb = prevByText.get(d.text);
+    if (emb) {
+      reused += 1;
+    } else if (apiKey) {
+      emb = await embedOne(d.text, apiKey, model);
+      embedded += 1;
+    } else if (prevById.has(d.id)) {
+      // ponytail: vector still describes the old wording; re-run with GEMINI_API_KEY to re-embed
+      emb = prevById.get(d.id);
+      textPatched += 1;
+    } else {
+      skipped.push(d.id);
+      continue;
+    }
     out.push({ id: d.id, text: d.text, embedding: emb });
   }
+  if (!apiKey && (embedded === 0)) {
+    console.warn('GEMINI_API_KEY missing — reused/patched existing vectors only.');
+  }
+  console.log(`docs=${docs.length} reused=${reused} embedded=${embedded} textPatched=${textPatched} skipped=${skipped.length}`);
+  if (skipped.length) console.warn('Skipped (no vector, no API key):', skipped.join(', '));
+  if (out.length === 0) { console.error('Nothing to write'); process.exit(1); }
   const outPath = path.join(root, 'src', 'data', 'kb_embeddings.json');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(out, null, 2), 'utf8');

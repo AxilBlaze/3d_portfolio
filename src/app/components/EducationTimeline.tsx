@@ -39,13 +39,12 @@ const items: TimelineItem[] = [
   {
     title: 'B.Tech (CSE)',
     period: '2022 - 2026',
-    status: 'Currently Enrolled',
-    details: 'Bachelor of Technology in Computer Science Engineering - Pursuing with excellent academic standing',
+    status: 'Completed',
+    details: 'Bachelor of Technology in Computer Science Engineering — passed and awarded the provisional degree',
     institution: 'VIT Bhopal University, Kothri Kalan, Madhya Pradesh',
-    cgpa: 8.58,
+    cgpa: 8.74,
     progressClass: 'cgpa-progress',
     delay: 1.0,
-    isCurrent: true,
   },
 ];
 
@@ -103,51 +102,13 @@ const EducationTimeline: React.FC = () => {
       itemsEls.forEach((el) => observer.observe(el));
     }
 
-    function addInteractions() {
-      const rootEl = sectionRef.current;
-      if (!rootEl) return;
-      const contents = rootEl.querySelectorAll('.timeline-content');
-      contents.forEach((content) => {
-        content.addEventListener('click', function handleClick(e) {
-          const ripple = document.createElement('div');
-          ripple.style.position = 'absolute';
-          ripple.style.borderRadius = '50%';
-          ripple.style.background = 'rgba(255, 255, 255, 0.3)';
-          ripple.style.transform = 'scale(0)';
-          ripple.style.animation = 'ripple 0.6s linear';
-          ripple.style.left = '50%';
-          ripple.style.top = '50%';
-          ripple.style.width = '50px';
-          ripple.style.height = '50px';
-          ripple.style.marginLeft = '-25px';
-          ripple.style.marginTop = '-25px';
-          const target = (e.currentTarget as HTMLElement) || (content as HTMLElement);
-          target.style.position = 'relative';
-          target.appendChild(ripple);
-          setTimeout(() => ripple.remove(), 600);
-        });
-      });
-    }
-
-    function addParallaxEffect() {
-      const onScroll = () => {
-        const rootEl = sectionRef.current;
-        if (!rootEl) return;
-        const scrolled = window.pageYOffset;
-        const dots = rootEl.querySelectorAll('.timeline-dot');
-        dots.forEach((dot, index) => {
-          const speed = 0.1 + index * 0.05;
-          (dot as HTMLElement).style.transform = `translate(-50%, calc(-50% + ${scrolled * speed}px))`;
-        });
-      };
-      window.addEventListener('scroll', onScroll);
-      return () => window.removeEventListener('scroll', onScroll);
-    }
-
     function addMouseParallax() {
+      const coarse = window.matchMedia('(pointer: coarse)').matches;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (coarse || reduced) return () => undefined;
       const onMove = (e: MouseEvent) => {
         const rootEl = sectionRef.current;
-        if (!rootEl) return;
+        if (!rootEl || rootEl.classList.contains('is-offscreen')) return;
         const shapes = rootEl.querySelectorAll('.shape');
         const mouseX = e.clientX / window.innerWidth;
         const mouseY = e.clientY / window.innerHeight;
@@ -162,11 +123,21 @@ const EducationTimeline: React.FC = () => {
       return () => window.removeEventListener('mousemove', onMove);
     }
 
-    createParticles();
+    function watchVisibility() {
+      const rootEl = sectionRef.current;
+      if (!rootEl) return () => undefined;
+      const io = new IntersectionObserver(([entry]) => {
+        rootEl.classList.toggle('is-offscreen', !entry.isIntersecting);
+      }, { threshold: 0 });
+      io.observe(rootEl);
+      return () => io.disconnect();
+    }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) createParticles();
     animateOnScroll();
-    addInteractions();
-    const removeScroll = addParallaxEffect();
     const removeMouse = addMouseParallax();
+    const removeVisibility = watchVisibility();
 
     // Trigger initial animations for items already in view
     const timer = setTimeout(() => {
@@ -189,13 +160,13 @@ const EducationTimeline: React.FC = () => {
 
     return () => {
       clearTimeout(timer);
-      if (removeScroll) removeScroll();
       if (removeMouse) removeMouse();
+      if (removeVisibility) removeVisibility();
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full py-16 overflow-hidden">
+    <section id="education" ref={sectionRef} className="relative w-full py-16 sm:py-20 lg:py-24 overflow-hidden scroll-mt-20">
       <div ref={particlesRef} className="background-particles" />
       <div className="floating-shapes">
         <div className="shape" />
@@ -205,7 +176,7 @@ const EducationTimeline: React.FC = () => {
 
       <div className="container">
         <div className="header">
-          <h1>Education Journey</h1>
+          <h2>Education Journey</h2>
           <p style={{ fontSize: '1.2rem', color: '#94a3b8' }}>Academic Progress & Achievements</p>
         </div>
 
@@ -226,6 +197,9 @@ const EducationTimeline: React.FC = () => {
                 <div className={`timeline-status ${item.status === 'Completed' ? 'status-completed' : 'status-enrolled'}`}>
                   {item.status}
                 </div>
+                {item.details && (
+                  <div className="timeline-institution">{item.details}</div>
+                )}
                 {typeof item.percentage === 'number' && (
                   <>
                     <div className="percentage">Percentage: {item.percentage}%</div>
@@ -236,7 +210,7 @@ const EducationTimeline: React.FC = () => {
                 )}
                 {typeof item.cgpa === 'number' && (
                   <>
-                    <div className="cgpa">Current CGPA: {item.cgpa}</div>
+                    <div className="cgpa">Final CGPA: {item.cgpa}</div>
                     <div className="progress-bar">
                       <div className={`progress-fill ${item.progressClass || ''}`} />
                     </div>
@@ -285,7 +259,7 @@ const EducationTimeline: React.FC = () => {
           opacity: 0;
           animation: fadeInUp 1s ease-out forwards;
         }
-        .header h1 {
+        .header h2 {
           font-size: 3rem;
           background: linear-gradient(45deg, #4f46e5, #06b6d4, #10b981);
           background-size: 200% 200%;
@@ -323,7 +297,7 @@ const EducationTimeline: React.FC = () => {
           border-radius: 20px;
           padding: 30px;
           position: relative;
-          cursor: pointer;
+          cursor: default;
           transition: all 0.3s ease;
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
@@ -362,14 +336,14 @@ const EducationTimeline: React.FC = () => {
         .progress-fill { height: 100%; background: linear-gradient(90deg, #4f46e5, #06b6d4); border-radius: 4px; width: 0; transition: width 2s ease-out; }
         .timeline-item.animate .progress-fill.percent-91 { width: 91.4%; }
         .timeline-item.animate .progress-fill.percent-94 { width: 94.6%; }
-        .timeline-item.animate .progress-fill.cgpa-progress { width: 85.8%; }
+        .timeline-item.animate .progress-fill.cgpa-progress { width: 87.4%; }
 
         @media (max-width: 768px) {
           .timeline::before { left: 20px; }
           .timeline-item { text-align: left !important; padding-left: 50px !important; padding-right: 15px !important; margin: 40px 0; }
           .timeline-dot { left: 20px !important; width: 16px; height: 16px; }
           .timeline-content::before { left: -25px !important; right: auto !important; border-right-color: rgba(255, 255, 255, 0.1) !important; border-left-color: transparent !important; width: 0; height: 0; border: 12px solid transparent; }
-          .header h1 { font-size: 1.8rem; }
+          .header h2 { font-size: 1.8rem; }
           .timeline-title { font-size: 1.3rem; }
           .timeline-content { padding: 20px; }
           .container { padding: 20px 15px; }
@@ -380,7 +354,7 @@ const EducationTimeline: React.FC = () => {
           .timeline-item { padding-left: 40px !important; padding-right: 10px !important; margin: 30px 0; }
           .timeline-dot { left: 15px !important; width: 14px; height: 14px; }
           .timeline-content::before { left: -20px !important; width: 0; height: 0; border: 10px solid transparent; }
-          .header h1 { font-size: 1.5rem; }
+          .header h2 { font-size: 1.5rem; }
           .timeline-title { font-size: 1.1rem; }
           .timeline-content { padding: 15px; }
           .container { padding: 15px 10px; }
@@ -399,7 +373,24 @@ const EducationTimeline: React.FC = () => {
         .current-education::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent); animation: shimmer 3s infinite; }
         @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
 
-        @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+        .is-offscreen .particle,
+        .is-offscreen .shape {
+          animation-play-state: paused;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .header,
+          .header h2,
+          .particle,
+          .shape,
+          .current-education::after {
+            animation: none;
+          }
+          .timeline-item {
+            opacity: 1;
+            transform: none;
+          }
+        }
       `}</style>
     </section>
   );

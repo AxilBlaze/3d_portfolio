@@ -1,17 +1,20 @@
 "use client";
 
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Footer from './components/Footer';
+import Experience from './components/Experience';
 import Projects from './components/Projects';
 
 export default function Home() {
   return (
     <main className="min-h-screen relative overflow-x-hidden">
-      {/* Content layers */}
+      <Navbar />
       <div className="relative z-10">
         <Hero />
         <Features />
+        <Experience />
         <Projects />
         <Footer />
       </div>

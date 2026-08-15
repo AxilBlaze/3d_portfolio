@@ -1,64 +1,61 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import EducationTimeline from './EducationTimeline';
 import CertificatesSection from './CertificatesSection';
+import Accomplishments from './Accomplishments';
+
+const tech = [
+  { src: '/TensorFlow.svg.png', alt: 'TensorFlow', label: 'TensorFlow' },
+  { src: '/keras.png', alt: 'Keras', label: 'Keras' },
+  { src: '/scikit_learn.png', alt: 'Scikit-learn', label: 'Scikit-learn' },
+  { src: '/open_cv.png', alt: 'OpenCV', label: 'OpenCV' },
+  { src: '/cuda.png', alt: 'CUDA', label: 'CUDA' },
+  { src: '/flask.png', alt: 'Flask', label: 'Flask' },
+  { src: '/python.jpeg', alt: 'Python', label: 'Python', round: true },
+  { src: '/sql.png', alt: 'SQL', label: 'SQL' },
+  { src: '/nextjs.png', alt: 'Next.js', label: 'Next.js' },
+  { src: '/tailwind-css.png', alt: 'Tailwind', label: 'Tailwind' },
+  { src: '/NLTK.png', alt: 'NLTK', label: 'NLTK' },
+  { src: '/hugging face.png', alt: 'Hugging Face', label: 'Hugging Face' },
+  { src: '/django.png', alt: 'Django', label: 'Django' },
+  { src: '/gemini.png', alt: 'Gemini', label: 'Gemini' },
+  { src: '/reactjs.png', alt: 'React', label: 'React' },
+  { src: '/docker.png', alt: 'Docker', label: 'Docker' },
+  { src: '/AWS.png', alt: 'AWS', label: 'AWS' },
+  { src: '/chroma_db.png', alt: 'ChromaDB', label: 'ChromaDB' },
+  { src: '/cloudinary.png', alt: 'Cloudinary', label: 'Cloudinary' },
+  { src: '/deep_face.png', alt: 'DeepFace', label: 'DeepFace' },
+  { src: '/fast_api.jpg', alt: 'FastAPI', label: 'FastAPI' },
+  { src: '/google_adk.jpg', alt: 'Google ADK', label: 'Google ADK' },
+  { src: '/langchain.png', alt: 'LangChain', label: 'LangChain' },
+  { src: '/langgraph.png', alt: 'LangGraph', label: 'LangGraph' },
+  { src: '/langsmith.png', alt: 'LangSmith', label: 'LangSmith' },
+  { src: '/MCP.png', alt: 'MCP', label: 'MCP' },
+  { src: '/openrouter.png', alt: 'OpenRouter', label: 'OpenRouter' },
+  { src: '/optuna.jpg', alt: 'Optuna', label: 'Optuna' },
+  { src: '/qdrant.png', alt: 'Qdrant', label: 'Qdrant' },
+  { src: '/Selenium.png', alt: 'Selenium', label: 'Selenium' },
+];
 
 const Features = () => {
-  const [background, setBackground] = useState('black');
-  const featuresRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      () => {
-
-
-        // Calculate background color based on scroll progress
-        setBackground('black');
-      },
-      { threshold: [0, 0.15, 0.25, 0.4, 0.6, 0.8, 1.0] }
-    );
-
-    const currentRef = featuresRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
-
-  // removed accelerators/companies section per design update
-
   return (
-    <div
-      ref={featuresRef}
-      className="py-8 sm:py-12"
-    >
+    <div className="py-16 sm:py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-6 sm:gap-8">
-        {/* Education timeline above the tech stack */}
         <EducationTimeline />
-        {/* Main Content Box with SVG */}
-        <div className={`w-full max-w-full flex flex-col items-center justify-start py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-40 rounded-lg ${background === 'white' ? 'bg-white-pattern' : background === 'black' ? 'bg-black-pattern' : ''} transition-colors duration-1000 ease-in-out`}>
-          {/* Responsive Title */}
-          <div className="w-full flex flex-col items-center justify-center -mt-4 sm:-mt-6 md:-mt-10 lg:-mt-20 mb-4 sm:mb-6">
+        <div
+          id="stack"
+          className="scroll-mt-20 w-full max-w-full flex flex-col items-center justify-start py-16 sm:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-40 rounded-lg bg-black-pattern"
+        >
+          <div className="w-full flex flex-col items-center justify-center mb-8 sm:mb-10">
             <div className="text-center">
-              <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-                YOUR
+              <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-3 tracking-tight">
+                BUILDING AI. SCALING INTELLIGENCE.
               </h2>
-              <h3 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-600 dark:text-gray-400 mb-2 tracking-wider">
-                MACHINE LEARNING
-              </h3>
-              <h4 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-gray-200">
-                EXPERT
-              </h4>
+              <p className="text-xs xs:text-sm sm:text-base md:text-lg font-light text-gray-400 tracking-wider">
+                MACHINE LEARNING • GENERATIVE AI • AGENTIC SYSTEMS
+              </p>
             </div>
-
-            {/* Decorative elements */}
             <div className="flex items-center justify-center gap-4 sm:gap-8 mt-4">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
@@ -73,126 +70,27 @@ const Features = () => {
             </div>
           </div>
 
-          {/* All Images in Responsive Grid */}
           <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-4 px-2 sm:px-4">
-            <div className="flex flex-col items-center">
-              <Image src="/TensorFlow.svg.png" alt="TensorFlow" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">TensorFlow</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/keras.png" alt="Keras" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Keras</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/scikit_learn.png" alt="Scikit-learn" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Scikit-learn</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/open_cv.png" alt="OpenCV" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">OpenCV</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/cuda.png" alt="CUDA" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">CUDA</span>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <Image src="/flask.png" alt="Flask" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Flask</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/python.jpeg" alt="Python" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain rounded-full hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Python</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/sql.png" alt="SQL" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">SQL</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/nextjs.png" alt="Next.js" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Next.js</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/tailwind-css.png" alt="Tailwind" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Tailwind</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/NLTK.png" alt="NLTK" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">NLTK</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/hugging face.png" alt="Development" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Hugging Face</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/django.png" alt="django" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">django</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/gemini.png" alt="gemini" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Gemini</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/reactjs.png" alt="React" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">React</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/docker.png" alt="Docker" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Docker</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/AWS.png" alt="AWS" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">AWS</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/chroma_db.png" alt="ChromaDB" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">ChromaDB</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/cloudinary.png" alt="Cloudinary" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Cloudinary</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/deep_face.png" alt="DeepFace" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">DeepFace</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/fast_api.jpg" alt="FastAPI" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">FastAPI</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/google_adk.jpg" alt="Google ADK" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Google ADK</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/langchain.png" alt="LangChain" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">LangChain</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/optuna.jpg" alt="Optuna" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Optuna</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/qdrant.png" alt="Qdrant" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Qdrant</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/Selenium.png" alt="Selenium" width={112} height={112} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover:scale-110 transition-transform duration-300" />
-              <span className="mt-2 text-gray-600 text-xs sm:text-sm text-center">Selenium</span>
-            </div>
+            {tech.map((item) => (
+              <div key={item.label} className="flex flex-col items-center">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={112}
+                  height={112}
+                  className={`w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain hover-lift ${item.round ? 'rounded-full' : ''}`}
+                />
+                <span className="mt-2 text-gray-300 text-xs sm:text-sm text-center">{item.label}</span>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* accelerators section removed */}
-
       </div>
 
-      {/* Certificates section placed after Tech Stack */}
       <CertificatesSection />
-
-      {/* companies section removed */}
+      <Accomplishments />
     </div>
   );
 };
 
-export default Features; 
+export default Features;

@@ -1,12 +1,37 @@
 import React from 'react';
+import { FaLinkedin, FaGithub, FaCode } from 'react-icons/fa';
+
+const socials = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/sandeep-balabantaray-69b60221b/', icon: <FaLinkedin size={20} /> },
+  { name: 'GitHub', href: 'https://github.com/AxilBlaze', icon: <FaGithub size={20} /> },
+  { name: 'Codolio', href: 'https://codolio.com/profile/Axil_Blaze', icon: <FaCode size={20} /> },
+];
 
 const Footer = () => {
   return (
-    <footer className="footer-purple py-12 sm:py-16 relative overflow-hidden">
+    <footer className="footer-purple py-16 sm:py-20 lg:py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h3 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-widest">
+        <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-widest">
           <span className="silver-shimmer">Thank you</span>
-        </h3>
+        </h2>
+        <a href="#contact" className="mt-6 inline-flex min-h-11 items-center text-sm text-gray-300 hover:text-white">
+          Get in touch
+        </a>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          {socials.map((social) => (
+            <a
+              key={social.name}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20"
+            >
+              {social.icon}
+              {social.name}
+            </a>
+          ))}
+        </div>
+        <p className="mt-8 text-xs text-gray-400">© {new Date().getFullYear()} Sandeep Balabantaray</p>
       </div>
       <style jsx>{`
         .footer-purple {
@@ -30,9 +55,12 @@ const Footer = () => {
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .silver-shimmer { animation: none; }
+        }
       `}</style>
     </footer>
   );
 };
 
-export default Footer; 
+export default Footer;
